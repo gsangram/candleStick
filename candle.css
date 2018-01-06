@@ -1,0 +1,117 @@
+body {
+        font: 10px sans-serif;
+    }
+/*    text {
+        fill: black;
+    }*/
+    text.symbol {
+        fill: #BBBBBB;
+    }
+    path {
+        fill: none;
+        stroke-width: 1;
+    }
+    path.candle {
+        stroke: #000000;
+    }
+    path.candle.body {
+        stroke-width: 1px;
+    }
+    path.candle.up {
+        fill: #00AA00;
+        stroke: #000000;
+        /*border-color: solidblack 1px;*/
+    }
+    path.candle.down {
+        fill: #FF0000;
+        stroke: #000000;
+    }
+    .close.annotation.up path {
+        fill: #00AA00;
+    }
+    path.volume.down {
+        stroke: black;
+        stroke-width: 1px;
+        opacity: 0.5;
+        fill: red;
+    }
+    path.volume.up {
+        stroke: black;
+        stroke-width: 1px;
+        opacity: 0.5;
+        fill: green;
+    }
+    
+    path.volume.equal {
+        stroke: black;
+        stroke-width: 1px;
+        opacity: 0.4;
+        fill: red;
+    }
+    
+    .indicator-plot path.line {
+        fill: none;
+        stroke-width: 1;
+    }
+    path.signal {
+        stroke: #FF9999;
+    }
+    path.zero {
+        stroke: #BBBBBB;
+        stroke-dasharray: 0;
+        stroke-opacity: 0.5;
+    }
+    path.difference {
+        fill: #BBBBBB;
+        opacity: 0.5;
+    }
+    path.overbought, path.oversold {
+        stroke: #FF9999;
+        stroke-dasharray: 5, 5;
+    }
+    path.middle, path.zero {
+        stroke: #BBBBBB;
+        stroke-dasharray: 5, 5;
+    }
+    .interaction .body {
+        cursor: move;
+    }
+    .crosshair {  
+        cursor: crosshair;
+    }
+    .crosshair path.wire {
+        stroke: darkgrey;
+        stroke-dasharray: 3, 3;
+        opacity: 1
+    }
+    .crosshair .axisannotation path {
+        stroke: black;
+        fill: black;
+    }
+    .crosshair text{
+        stroke:  white;       
+    }
+    .tick line{
+        opacity: 0.2
+    }
+    #candledrop{
+        width: 86%;
+        background-color:  black;
+    }
+/*    .data path{
+        fill: red;
+    }*/
+    #legend_values{
+        float : right; 
+        padding-right: 30%;
+    }
+    #legend_dropdown{
+        margin-left: 50px;
+        display: inline-block;
+    }
+    #legend_values li{
+        display: inline-block;
+        margin-right: 100px;
+        opacity: 0.5;
+        width:90px;
+    }

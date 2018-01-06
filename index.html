@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>candleStick</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="lib/jquery.js" type="text/javascript"></script>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>-->
+        <script src="http://d3js.org/d3.v4.min.js"></script>
+        <link href="candle.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="http://techanjs.org/techan.min.js"></script>
+        <script src="candleStick.js" type="text/javascript"></script>
+        <!--<script src="newScript.js" type="text/javascript"></script>-->
+    </head>
+    <body>
+        <h4>Candle stick chart</h4>
+        <!--<div id="candledrop"></div>-->
+    <div id="candledrop" class="dropdown" style="left: 03%;">
+     <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" style="width: 100px"><b>1 D</b><span class="caret"></span></button>
+     <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" >
+      <li role="presentation"><a role="menuitem" tabindex="0" href="#">1 D</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">3 D</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1 W</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1 MO</a></li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1 Hr</a></li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1 Min</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">5 Min</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">15 Min</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">30 Min</a></li>    
+     </ul>
+    </div>
+    <br>    
+    <div id="legend_container" >
+     <div id="legend_dropdown" class="btn-group">
+         <button class="btn btn-default" type="button" id="menu2"><b>select tools</b></button>
+         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+         <span class="caret"></span></button>
+     <ul class="dropdown-menu" role="menu" aria-labelledby="menu2" >
+      <li role="presentation"><a role="menuitem" tabindex="0" href="#">None</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Crosshairs</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Annotations</a></li>
+     </ul>
+     </div>       
+     <div id="legend_values">
+      <ul class="price-features" >
+        <li><span>O:</span><span id="o_ohlc"> </span></li>
+        <li><span>H:</span><span id="h_ohlc"> </span></li>
+        <li><span>C:</span><span id="c_ohlc"> </span></li><br>     
+        <li><span>L:</span><span id="l_ohlc"> </span></li>
+        <li><span>V:</span><span id="v_ohlc"> </span></li>
+        <li><span>B:</span><span id="b_ohlc"> </span></li>
+       </ul>
+     </div>  
+    </div>     
+    
+    <div id="candle"  style="position: relative">
+    <div class="btn-group" style="position: absolute; left: 40%; top: 75%; ">
+            <button id="zoomout" class="btn btn-default"><i class="glyphicon glyphicon-minus"> </i></button>
+            <button id="zoomin" class="btn btn-default"><i class="glyphicon glyphicon-plus"> </i></button>
+        </div>
+        </div>
+        
+        <script>
+            $(document).ready(function () {
+                var options = {
+                    container: "#candle",
+                    header: "Candle stick chart",
+                    data: "candle.json",
+//                    data: [{
+//        "Date": "2011-08-01",
+//        "Open": "136.65",
+//        "High": "136.96",
+//        "Low": "134.15",
+//        "Close": "136.49",
+//        "Volume": "37617413"
+//      }, {
+//        "Date": "2011-08-02",
+//        "Open": "135.26",
+//        "High": "135.95",
+//        "Low": "131.50",
+//        "Close": "131.85",
+//        "Volume": "42442096"
+//      }, {
+//        "Date": "2011-08-05",
+//        "Open": "132.90",
+//        "High": "135.27",
+//        "Low": "128.30",
+//        "Close": "135.25",
+//        "Volume": "47352368"
+//      }, {
+//        "Date": "2011-08-06",
+//        "Open": "134.94",
+//        "High": "137.24",
+//        "Low": "132.63",
+//        "Close": "135.03",
+//        "Volume": "36513991"
+//      }, {
+//        "Date": "2011-08-07",
+//        "Open": "136.76",
+//        "High": "136.86",
+//        "Low": "132.00",
+//        "Close": "134.01",
+//        "Volume": "32216707"
+//      }, {
+//        "Date": "2011-08-08",
+//        "Open": "131.11",
+//        "High": "133.00",
+//        "Low": "125.09",
+//        "Close": "126.39",
+//        "Volume": "35995537"
+//      }, {
+//        "Date": "2011-08-09",
+//        "Open": "123.12",
+//        "High": "127.75",
+//        "Low": "120.30",
+//        "Close": "125.00",
+//        "Volume": "45283577"
+//      }, {
+//        "Date": "2011-08-12",
+//        "Open": "128.32",
+//        "High": "129.35",
+//        "Low": "126.50",
+//        "Close": "127.79",
+//        "Volume": "42699670"
+//      }, {
+//        "Date": "2011-08-13",
+//        "Open": "128.29",
+//        "High": "128.30",
+//        "Low": "123.71",
+//        "Close": "124.03",
+//        "Volume": "47795088"
+//      }, {
+//        "Date": "2011-08-14",
+//        "Open": "122.74",
+//        "High": "124.86",
+//        "Low": "119.65",
+//        "Close": "119.90",
+//        "Volume": "55681663"
+//      }, {
+//        "Date": "2011-08-15",
+//        "Open": "117.01",
+//        "High": "118.50",
+//        "Low": "111.62",
+//        "Close": "117.05",
+//        "Volume": "38293993"
+//      }, {
+//        "Date": "2011-08-16",
+//        "Open": "122.01",
+//        "High": "123.50",
+//        "Low": "119.82",
+//        "Close": "122.06",
+//        "Volume": "54200116"
+//      }, {
+//        "Date": "2011-08-19",
+//        "Open": "123.96",
+//        "High": "124.50",
+//        "Low": "120.50",
+//        "Close": "122.22",
+//        "Volume": "58991505"
+//      }, {
+//        "Date": "2011-08-20",
+//        "Open": "122.21",
+//        "High": "128.96",
+//        "Low": "121.00",
+//        "Close": "127.57",
+//        "Volume": "53931469"
+//      }, {
+//        "Date": "2011-08-21",
+//        "Open": "131.22",
+//        "High": "132.75",
+//        "Low": "130.33",
+//        "Close": "132.51",
+//        "Volume": "43033925"
+//      }, {
+//        "Date": "2011-08-22",
+//        "Open": "133.09",
+//        "High": "133.34",
+//        "Low": "129.76",
+//        "Close": "131.07",
+//        "Volume": "47933075"
+//      }, {
+//        "Date": "2011-08-23",
+//        "Open": "130.53",
+//        "High": "135.37",
+//        "Low": "129.81",
+//        "Close": "135.30",
+//        "Volume": "56813940"
+//      }, {
+//        "Date": "2011-08-26",
+//        "Open": "133.39",
+//        "High": "134.66",
+//        "Low": "132.10",
+//        "Close": "132.25",
+//        "Volume": "47428583"
+//      }],
+                    height: 540,
+                    width: 1400,
+                    margin: { top: 20, right: 50, bottom: 30, left: 50 },
+                    ohlc: { height: 305 },
+                    indicator: { height: 65, padding: 5 },                  
+                }
+//                console.log(options , "options in html");
+                loadCandleChart(options);  
+            });            
+        </script>
+    </body>
+</html>
