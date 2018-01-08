@@ -168,7 +168,7 @@ function loadCandleChart(options) {
         parentArr.push(data);       // pushing data to parent array 
 
 // calculating domain for the dropdown selection        
-        var dateNew = data[data.length - 1].date;   // finding last date in json data 
+        var dateNew = data[data.length - 1].date;   // finding last date in json data      
         console.log(dateNew, "dateNew");
         var yr = dateNew.getFullYear();  // year of last date
         console.log(yr, "yr");
@@ -182,13 +182,12 @@ function loadCandleChart(options) {
         console.log(day, "day");
         var hr = dateNew.getHours();  //finding hr
         console.log(hr, "hr");
-        var min = dateNew.getMinutes();
+        var min = dateNew.getMinutes()
         console.log(min, "min");
-        var sec = dateNew.getSeconds();
-        console.log(sec, "sec");
 
-        var init_min = ts - (60000 * 50);
-        console.log(init_min, new Date(init_min), "date init_min");
+
+        var init_min = moment(dateNew).subtract(50, 'minutes');      
+        console.log(init_min._d,  "date init_min");
         
         var init_5min = ts - (5 * 60000 * 50);
         console.log(init_5min, new Date(init_5min), "date init_5min");
@@ -199,17 +198,17 @@ function loadCandleChart(options) {
         var init_30min = ts - (30 * 60000 * 50);
         console.log(init_30min, new Date(init_30min), "date init_30min");
         
-        var init_hr = ts - (60 * 60000 * 50);
-        console.log(init_hr, new Date(init_hr), "date init_hr");
+        var init_hr = moment(dateNew).subtract(50, 'hours');
+        console.log(init_hr._d, "date init_hr");  
         
-        var init_day = ts - (24 * 60 * 60000 * 50);
-        console.log(init_day, new Date(init_day), "date init_day");
+        var init_day = moment(dateNew).subtract(50, 'days');
+        console.log(init_day._d, "date init_day");
         
         var init_3day = ts - (3 * 24 * 60 * 60000 * 50);
         console.log(init_3day, new Date(init_3day), "date init_3day");
         
         var init_wk = moment(dateNew).subtract(50, 'weeks');
-        console.log(init_wk._d, new Date(init_wk), "date init_wk");
+        console.log(init_wk._d, "date init_wk");
         
         var init_mon = moment(dateNew).subtract(50, 'months');
         console.log(init_mon._d, "init_mon");
@@ -238,8 +237,8 @@ function loadCandleChart(options) {
         function settingNewDomain(bt) {
             switch (bt) {
                 case "1 Min":
-                    var dom = [dateNew, new Date(init_min)];
-                    onChangeButton(arr1);  // onChangeButton(bt, dom);
+                    var dom = [dateNew, init_min._d];  
+                    onChangeButton(arr1);  // onChangeButton(bt, dom); 
                     break;
                     case "5 Min":
                     var dom = [dateNew, new Date(init_5min)];
@@ -250,15 +249,15 @@ function loadCandleChart(options) {
                     onChangeButton(arr2);     // onChangeButton(bt, dom);
                     break;
                 case "30 Min":
-                    var dom = [dateNew, new Date(init_30min)];
+                    var dom = [dateNew, new Date(init_30min)];   
                     onChangeButton(arr3);     // onChangeButton(bt, dom);
                     break;
                 case "1 Hr":
-                    var dom = [dateNew, new Date(init_hr)];
+                    var dom = [dateNew, init_hr._d];
                     onChangeButton(arr3);     // onChangeButton(bt, dom);
                     break;
                 case "1 D":
-                    var dom = [dateNew, new Date(init_day)];
+                    var dom = [dateNew, init_day._d];
                     onChangeButton(arr3);     // onChangeButton(bt, dom);
                     break;
                 case "3 D":
@@ -318,7 +317,7 @@ function loadCandleChart(options) {
 //                }
 //            });
 
-//            console.log(selArr, "selArr...");
+            console.log(techan.scale.plot.time(selArr).domain(), "techan.scale.plot.time(selArr).domain()...");
             x.domain(techan.scale.plot.time(selArr).domain());                                                    
             svg.select("g.candlestick").datum(selArr).call(candlestick);
             svg.select("g.close.annotation").datum([selArr[selArr.length - 1]]).call(closeAnnotation);
