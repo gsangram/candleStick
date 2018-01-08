@@ -1,0 +1,575 @@
+<html>
+    <head>
+<style>
+        
+.stx-nav {
+    height: 50px
+}
+
+.stx-toolbar {
+    height: 36px;
+    padding: 9px 0 0 0
+}
+
+.stx-nav {
+    position: relative;
+    border: solid 1px;
+    background: #5b656b;
+    background: -webkit-gradient(linear, left top, left bottom, from(#5b656b), to(#424b50));
+    background: -moz-linear-gradient(top, #5b656b, #424b50);
+    background: -o-linear-gradient(top, #5b656b, #424b50)
+}
+
+.stx-nav .stx-search,
+.stx-nav .stx-menus {
+    display: inline-block;
+    margin: 0;
+    padding: 0
+}
+
+.stx-nav .stx-menus {
+    float: right;
+    margin-right: 10px
+}
+
+.stx-nav .stx-search,
+.stx-nav #periodBtn,
+.stx-nav .stx-menus {
+    margin-top: 10px
+}
+
+.stx-nav .stx-btn.stx-menu-btn,
+.stx-nav .stx-nav-ico {
+    border-color: rgba(153, 153, 153, .4);
+    color: #efefef
+}
+
+.stx-nav .stx-btn.stx-menu-btn:hover,
+.stx-nav .stx-nav-ico:hover {
+    border-color: rgba(153, 153, 153, .8);
+    color: #fff
+}
+
+.stx-nav .stx-btn.stx-menu-btn:active {
+    color: #fff
+}
+
+.stx-nav .stx-btn.stx-menu-btn>em {
+    border-left: 1px dotted rgba(153, 153, 153, .5);
+    opacity: 1;
+    filter: none;
+    -ms-filter: none
+}
+
+.stx-nav .stx-btn.stx-menu-btn:hover>em {
+    border-left: 1px dotted rgba(153, 153, 153, .8)
+}
+
+.stx-nav .stx-search {
+    margin-left: 15px;
+    position: relative
+}
+
+input#symbol {
+    text-transform: uppercase;
+    border-right: none;
+    -webkit-border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px
+}
+
+.stx-nav .stx-btn {
+    margin: 0 6px 0 0
+}
+
+.stx-nav .stx-btn.stx-menu-btn {
+    width: 80px
+}
+
+.stx-nav .stx-btn.stx-menu-btn#periodBtn {
+    width: auto;
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0
+}
+
+.stx-nav .stx-btn.stx-menu-btn#cogBtn {
+    background-image: url(/scripts/bittrex2/vendor/chartiq/img/stx-sprite.png);
+    width: 27px;
+    padding: 0 20px 0 0;
+    background-position: -35px -118px
+}
+
+.menuOutline {
+    position: absolute;
+    top: 31px;
+    right: 0;
+    width: 126px;
+    background: #fff;
+    font-weight: normal;
+    border: solid 1px #ccc;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 0 2px 3px rgba(0, 0, 0, .2);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, .2);
+    z-index: 100
+}
+
+.menuSelect>li,
+.menuSelect>ul>li {
+    padding: 2px 16px;
+    line-height: 27px;
+    margin: 0;
+    text-align: left;
+    cursor: pointer;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: color .25s, background-color .25s;
+    -webkit-transition: color .25s, background-color .25s
+}
+
+.menuSelect>li:first-child,
+.menuSelect>ul>li:first-child {
+    padding: 5px 16px 2px 16px
+}
+
+.menuSelect>li:last-child,
+.menuSelect>ul>li:last-child {
+    padding: 2px 16px 5px 16px
+}
+
+.menuSelect>li:hover,
+.menuSelect>ul>li:hover {
+    background: #efefef
+}
+
+li.stx-menu-divider,
+.menuSelect li.stx-menu-content,
+.menuSelect li.stx-heading,
+li.stxLookupFilter,
+li.stx-menu-divider:hover,
+.menuSelect li.stx-menu-content:hover,
+.menuSelect li.stx-heading:hover,
+li.stxLookupFilter:hover {
+    background: transparent;
+    cursor: default;
+    white-space: normal
+}
+
+li.stx-menu-divider,
+li.stx-menu-divider:hover,
+.menuSelect li.stx-menu-divider,
+.menuSelect li.stx-menu-divider:hover {
+    height: 1px;
+    padding: 0;
+    background: #ccc!important
+}
+
+.menuSelect li.stx-menu-content {
+    padding: 10px 16px 16px 16px
+}
+
+.menuSelect li.stx-menu-content:first-child {
+    padding: 16px 16px 16px 16px
+}
+
+.menuSelect li.stx-heading,
+.menuSelect li.stx-heading:first-child,
+li.stxLookupFilter {
+    padding: 10px 1px 5px 16px;
+    font-size: 10px;
+    text-transform: uppercase;
+    line-height: normal;
+    color: #999;
+    font-weight: bold
+}
+
+.menuSelect li.stx-heading,
+.menuSelect li.stx-heading:first-child {
+    padding: 10px 16px 5px 16px
+}
+
+.menuSelect li.stx-option {
+    position: relative;
+    padding-left: 35px
+}
+
+.menuSelect li.stx-option .stx-checkbox,
+.menuSelect li.stx-option .stx-checkbox.false {
+    position: absolute;
+    left: 14px;
+    top: 8px;
+    display: block;
+    float: left;
+    width: 14px;
+    height: 14px;
+    text-indent: -1000px;
+    overflow: hidden;
+    background-image: url(/scripts/bittrex2/vendor/chartiq/img/stx-sprite.png);
+    background-position: -142px -122px
+}
+
+.menuSelect li.stx-option .stx-checkbox.true {
+    background-position: -182px -122px
+}
+
+.menuSelect ul.col {
+    float: left;
+    cursor: default;
+    width: 201px;
+    border-top: none;
+    border-right: 1px solid #efefef
+}
+
+.menuSelect ul.col:last-child {
+    border-right: none
+}
+
+.menuSelect ul.col li {
+    padding: 2px 16px 2px 16px
+}
+
+.menuSelect ul.col li:first-child {
+    padding: 5px 16px 2px 16px
+}
+
+.menuSelect ul.col li:last-child {
+    padding: 2px 16px 5px 16px
+}
+
+.menuSelect .stx-btn {
+    font-size: 11px;
+    margin: 0
+}
+
+.injected .stx-btn {
+    float: right;
+    margin: 0
+}
+
+.injected li {
+    clear: both;
+    border-top: 1px dotted #ccc
+}
+
+.injected li.stx-menu-content:last-child {
+    padding-top: 5px
+}
+
+.injected a.stxItem {
+    color: #666;
+    display: inline-block;
+    width: 110px;
+    float: left;
+    line-height: 29px;
+    cursor: pointer;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    border-bottom: none
+}
+
+.injected a.stxItem:hover {
+    color: #333;
+    border-bottom: none
+}
+
+.stxLookupResults {
+    right: auto;
+    left: 0;
+    width: 400px
+}
+
+.stxLookupResults ul,
+.stxLookupResults li {
+    overflow: hidden
+}
+
+.stxLookupResults li.divider {
+    border-top: solid 1px #efefef
+}
+
+.stxResults {
+    right: auto;
+    left: 0;
+    width: 100%;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 0 2px 3px rgba(0, 0, 0, .2);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, .2)
+}
+
+.stxResults li {
+    font-size: 11px;
+    line-height: 0;
+    clear: both
+}
+
+.stxResults li.stxLookupFilter {}
+
+.stxResults li.stxLookupFilter .stx-btn {
+    padding: 0;
+    line-height: 18px;
+    font-size: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 5px;
+    border-color: #efefef;
+    color: #999;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.stxResults li.stxLookupFilter .stx-btn:hover {
+    border-color: #ccc;
+    color: #666
+}
+
+.stxResults li.stxLookupFilter .stx-btn:first-child {
+    width: 35px
+}
+
+.stxResults li.stxLookupFilter .stx-btn.on,
+.stxResults li.stxLookupFilter .stx-btn.on:hover {
+    background: #999;
+    color: #fff;
+    border-color: #999;
+    text-shadow: 0 1px 0 #666;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    cursor: default
+}
+
+.stxResults span {
+    line-height: 27px;
+    display: inline-block;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.stxLookupSymbols li span:nth-of-type(1) {
+    color: #333;
+    font-weight: bold;
+    min-width: 55px;
+    float: left;
+    padding-right: 10px
+}
+
+.stxLookupSymbols li span:nth-of-type(2) {
+    width: 200px;
+    float: left
+}
+
+.stxLookupSymbols li span:nth-of-type(3) {
+    color: #333;
+    font-size: 10px;
+    min-width: 40px;
+    float: right;
+    text-align: right
+}
+
+.menuSelect.periodicity {
+    right: auto;
+    left: 0
+}
+
+.menuSelect.studies {
+    width: 404px;
+    overflow: hidden
+}
+
+.stx-basic .menuSelect.studies {
+    width: 118px
+}
+
+.menuSelect.studies>ul>li {
+    line-height: 24px
+}
+
+.menuSelect.cog {
+    width: 180px
+}
+
+.menuSelect.cog .stx-btn.theme {
+    display: block;
+    float: none;
+    clear: both
+}
+
+.menuSelect.cog li.stx-menu-content {
+    padding: 0
+}
+
+.menuSelect.cog .injected li.stx-heading {
+    border-top: none;
+    padding-bottom: 10px
+}
+
+.menuSelect.cog li.stx-menu-content:last-child {
+    padding: 10px 16px 16px
+}
+
+.menuSelect.cog li.themeSelectorTemplate {
+    margin: 0 16px
+}
+
+.stxBodyOverlay,
+.stxDialogOverlay {
+    position: absolute;
+    width: 99%;
+    height: 100%;
+    top: 0;
+    overflow: hidden;
+    display: none;
+    background: rgba(255, 255, 255, 0)
+}
+
+.stxDialogOverlay {
+    background: rgba(24, 27, 28, .7)
+}
+
+.stxDialogOverlay {
+    z-index: 200
+}
+
+.stx-dialog-container {
+    z-index: 201
+}
+
+.stxBodyOverlay {
+    z-index: 202
+}
+
+.ciqColorPicker {
+    z-index: 205
+}
+
+</style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="stx-nav">
+            <div id="periodBtn" class="stx-btn stx-menu-btn stxMenu">30 Min<em></em>
+                <ul id="periodicity" class="periodicity menuSelect menuOutline" style="display:none">
+                    <li stxtoggle="changePeriodicity('day')">1 D</li>
+                    <li stxtoggle="changePeriodicity('3d')">3 D</li>
+                    <li stxtoggle="changePeriodicity('week')">1 W</li>
+                    <li stxtoggle="changePeriodicity('month')">1 Mo</li>
+                    <li class="stx-menu-divider"></li>
+                    <li stxtoggle="changePeriodicity('hour')">1 Hr</li>
+                    
+                    <li class="stx-menu-divider"></li>
+                    <li stxtoggle="changePeriodicity(1)">1 Min</li>
+                    <li stxtoggle="changePeriodicity(5)">5 Min</li>
+                    <li stxtoggle="changePeriodicity(15)">15 Min</li>
+                    <li stxtoggle="changePeriodicity(30)">30 Min</li>
+                </ul>
+            </div>
+
+            <!-- These are very basic sample menus. You may replace these with another menuing system. Just follow the same onClick convention
+            or provide proxy functions that call the same code-->
+
+            <div class="stx-menus">
+
+                <!-- Chart sharing is available as a plug in. It requires stxShare.js. Please contact our account manager for more details -->
+                <div id="shareBtn" class="stx-btn stx-menu-btn" style=""><span class="stx-ico"></span>Share</div>
+
+                <div class="stx-btn stx-menu-btn stxMenu">
+                    Chart<em></em>
+                    <ul id="chart-display" class="chart-display menuSelect menuOutline" style="display:none">
+                        <li class="stx-heading">Chart Style</li>
+                        <li stxtoggle="stxx.setChartType('candle')">Candle</li>
+                        <li stxtoggle="stxx.setChartType('bar')">Bar</li>
+                        <li stxtoggle="stxx.setChartType('colored_bar')">Colored Bar</li>
+                        <li stxtoggle="stxx.setChartType('line')">Line</li>
+                        <li stxtoggle="stxx.setChartType('hollow_candle')">Hollow Candle</li>
+                        <li stxtoggle="stxx.setChartType('mountain')">Mountain</li>
+                        <li class="stx-menu-divider"></li>
+                        <li class="stx-heading">Chart Scale</li>
+                        <li class="stx-option" stxtoggle="toggleLog()">Log Scale<span class="stx-checkbox stx-logscale false"></span></li>
+                    </ul>
+                </div>
+                <div class="stx-btn stx-menu-btn stxMenu">
+                    Studies<em></em>
+                    <div id="studies" class="studies menuSelect menuOutline" style="display:none">
+                        <ul class="col">
+                            <li stxtoggle="studyDialog(this, 'ADX');">ADX/DMS</li>
+                            <li stxtoggle="studyDialog(this, 'ATR');">Average True Range</li>
+                            <li stxtoggle="studyDialog(this, 'Bollinger Bands');">Bollinger Bands</li>
+                            <li stxtoggle="studyDialog(this, 'COG');">Center Of Gravity</li>
+                            <li stxtoggle="studyDialog(this, 'Chaikin MF');">Chaikin Money Flow</li>
+                            <li stxtoggle="studyDialog(this, 'CCI');">Commodity Channel Index</li>
+                            <li stxtoggle="studyDialog(this, 'Ehler Fisher');">Ehler Fisher Transform</li>
+                            <li stxtoggle="studyDialog(this, 'Elder Force');">Elder Force Index</li>
+                            <li stxtoggle="studyDialog(this, 'Elder Ray');">Elder Ray</li>
+                            <li stxtoggle="studyDialog(this, 'Fractal Chaos Bands');">Fractal Chaos Bands</li>
+                            <li stxtoggle="studyDialog(this, 'Fractal Chaos');">Fractal Chaos Oscillator</li>
+                            <li stxtoggle="studyDialog(this, 'Intraday Mtm');">Intraday Momentum Index</li>
+                        </ul>
+                        <ul class="col">
+                            <li stxtoggle="studyDialog(this, 'Keltner');">Keltner Channel</li>
+                            <li stxtoggle="studyDialog(this, 'Lin Fcst');">Linear Reg Forecast</li>
+                            <li stxtoggle="studyDialog(this, 'Lin R2');">Linear Reg R2</li>
+                            <li stxtoggle="studyDialog(this, 'macd');">MACD</li>
+                            <li stxtoggle="studyDialog(this, 'Momentum');">Momentum Indicator</li>
+                            <li stxtoggle="studyDialog(this, 'M Flow');">Money Flow Index</li>
+                            <li stxtoggle="studyDialog(this, 'ma');">Moving Average</li>
+                            <li stxtoggle="studyDialog(this, 'MA Env');">Moving Average Envelope</li>
+                            <li stxtoggle="studyDialog(this, 'On Bal Vol');">On Balance Volume</li>
+                            <li stxtoggle="studyDialog(this, 'PSAR');">Parabolic SAR</li>
+                            <li stxtoggle="studyDialog(this, 'Price Vol');">Price Volume Trend</li>
+                            <li stxtoggle="studyDialog(this, 'RAVI');">RAVI</li>
+                        </ul>
+                        <ul class="col">
+                            <li stxtoggle="studyDialog(this, 'rsi');">RSI</li>
+                            <li stxtoggle="studyDialog(this, 'Schaff');">Schaff Trend Cycle</li>
+                            <li stxtoggle="studyDialog(this, 'STD Dev');">Standard Deviation</li>
+                            <li stxtoggle="studyDialog(this, 'stochastics');">Stochastics</li>
+                            <li stxtoggle="studyDialog(this, 'Stch Mtm');">Stochastic Momentum Index</li>
+                            <li stxtoggle="studyDialog(this, 'Swing');">Swing Index</li>
+                            <li stxtoggle="studyDialog(this, 'Trade Vol');">Trade Volume Index</li>
+                            <li stxtoggle="studyDialog(this, 'vol undr');">Vol Underlay<span class="stx-remove-study" id="vol-undr" style="display: inline-block;"></span></li>
+                            <li stxtoggle="studyDialog(this, 'vchart');">Volume</li>
+                            <li stxtoggle="studyDialog(this, 'Vol Osc');">Volume Oscillator</li>
+                            <li stxtoggle="studyDialog(this, 'Vol ROC');">Volume Rate of Change</li>
+                            <li stxtoggle="studyDialog(this, 'Williams %R');">Williams %R</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="cogBtn" class="stx-btn stx-menu-btn stxMenu">
+                    &nbsp;<em></em>
+                    <ul id="cog" class="cog menuSelect menuOutline" style="display:none">
+                        <li class="stx-heading">Timezone</li>
+                        <li stxtoggle="STX.DialogManager.displayDialog('timezoneDialog');STX.TimeZoneWidget.populateDialog('timezoneDialog');">Change Timezone</li>
+                        <li class="stx-menu-divider">&nbsp;</li>
+                        <li class="stx-heading">Default Themes</li>
+                        <li class="stx-menu-content">
+                            <ul class="menuSelect" id="builtInThemeSelector"><li>Light</li><li>Dark</li></ul>
+                        </li>
+                        <li class="stx-menu-content">
+                            <ul class="injected" id="customThemeSelector">
+                                <li class="stx-heading">Custom Themes</li>
+                                <li class="themeSelectorTemplate" style="display:none">
+                                    <a class="stxItem"></a>
+                                    <div class="stx-btn stx-ico"><span class="stx-ico-close stxClose">x</span></div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="stx-menu-content"><div class="stx-btn theme" stxtoggle="STX.DialogManager.displayDialog('themeDialog');STX.ThemeManager.populateDialog('themeDialog', stxx);">New Custom Theme</div></li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </body>
+

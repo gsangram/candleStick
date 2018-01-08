@@ -172,50 +172,47 @@ function loadCandleChart(options) {
         console.log(dateNew, "dateNew");
         var yr = dateNew.getFullYear();  // year of last date
         console.log(yr, "yr");
-        var mo = dateNew.getMonth();      // month of the last date
-        console.log(mo, "mo");
-        var noOfdays = new Date(yr, mo, 0).getDate();   // total no. of days of the last date
+        var mon = dateNew.getMonth();      // month of the last date
+        console.log(mon, "mon");
+        var noOfdays = new Date(yr, mon, 0).getDate();   // total no. of days of the last date
         console.log(noOfdays, "noOfdays");
         var ts = dateNew.getTime();  // timestamp of last date
-        console.log(ts, "ts");
+        console.log(ts, "ts");    
         var day = dateNew.getDate(); // day of thee month
         console.log(day, "day");
         var hr = dateNew.getHours();  //finding hr
         console.log(hr, "hr");
-        var min = dateNew.getMinutes()
+        var min = dateNew.getMinutes();
         console.log(min, "min");
-        var sec = dateNew.getSeconds()
+        var sec = dateNew.getSeconds();
         console.log(sec, "sec");
 
-
-   var init_5min= ts - (5*60000*50);
-   console.log(init_5min, "init_5min");
-   console.log(new Date(init_5min), "date init_5min");
-   var init_15min = ts - (15*60000*50);
-   console.log(init_15min, "init_15min");
-   console.log(new Date(init_15min), "date init_15min");
-   var init_30min= ts - (30*60000*50);
-   console.log(init_30min, "init_30min");
-   console.log(new Date(init_30min), "date init_30min");
-   var init_hr= ts - (60*60000*50);
-   console.log(init_hr, "init_hr");
-   console.log(new Date(init_hr), "date init_hr");
-   var init_day= ts - (24*60*60000*50);
-   console.log(init_day, "init_day");
-   console.log(new Date(init_day), "date init_day");
-   var init_3day= ts - (3*24*60*60000*50);
-   console.log(init_3day, "init_3day");
-   console.log(new Date(init_3day), "date init_3day");
-   var init_wk= ts - (7*24*60*60000*50);
-   console.log(init_wk, "init_wk");
-   console.log(new Date(init_wk), "date init_wk");
-//   var init_mon= ts - (15*60000*50);
-
-
-
-
-
-
+        var init_min = ts - (60000 * 50);
+        console.log(init_min, new Date(init_min), "date init_min");
+        
+        var init_5min = ts - (5 * 60000 * 50);
+        console.log(init_5min, new Date(init_5min), "date init_5min");
+        
+        var init_15min = ts - (15 * 60000 * 50);
+        console.log(init_15min, new Date(init_15min), "date init_15min");
+        
+        var init_30min = ts - (30 * 60000 * 50);
+        console.log(init_30min, new Date(init_30min), "date init_30min");
+        
+        var init_hr = ts - (60 * 60000 * 50);
+        console.log(init_hr, new Date(init_hr), "date init_hr");
+        
+        var init_day = ts - (24 * 60 * 60000 * 50);
+        console.log(init_day, new Date(init_day), "date init_day");
+        
+        var init_3day = ts - (3 * 24 * 60 * 60000 * 50);
+        console.log(init_3day, new Date(init_3day), "date init_3day");
+        
+        var init_wk = moment(dateNew).subtract(50, 'weeks');
+        console.log(init_wk._d, new Date(init_wk), "date init_wk");
+        
+        var init_mon = moment(dateNew).subtract(50, 'months');
+        console.log(init_mon._d, "init_mon");
 
 
 //creating arrays to push the required data on changing of the dropdown
@@ -238,41 +235,91 @@ function loadCandleChart(options) {
         }
 // setting default domain on loading        
         onChangeButton(data);
-//        var bt;
         function settingNewDomain(bt) {
             switch (bt) {
-//                case "1 Min":
-//                    onChangeButton(arr1);
-//                    break;
-//                case "15 Min":
-//                    onChangeButton(arr2);
-//                    break;
-//                case "30 Min":
-//                    onChangeButton(arr3);
-//                    break;
-//                    case "1 Hr":
-//                    onChangeButton(arr3);
-//                    break;
+                case "1 Min":
+                    var dom = [dateNew, new Date(init_min)];
+                    onChangeButton(arr1);  // onChangeButton(bt, dom);
+                    break;
+                    case "5 Min":
+                    var dom = [dateNew, new Date(init_5min)];
+                    onChangeButton(arr1);    // onChangeButton(bt, dom);
+                    break;
+                case "15 Min":
+                    var dom = [dateNew, new Date(init_15min)];
+                    onChangeButton(arr2);     // onChangeButton(bt, dom);
+                    break;
+                case "30 Min":
+                    var dom = [dateNew, new Date(init_30min)];
+                    onChangeButton(arr3);     // onChangeButton(bt, dom);
+                    break;
+                case "1 Hr":
+                    var dom = [dateNew, new Date(init_hr)];
+                    onChangeButton(arr3);     // onChangeButton(bt, dom);
+                    break;
+                case "1 D":
+                    var dom = [dateNew, new Date(init_day)];
+                    onChangeButton(arr3);     // onChangeButton(bt, dom);
+                    break;
                 case "3 D":
-                    onChangeButton(arr1);
+                    var dom = [dateNew, new Date(init_3day)];
+                    onChangeButton(arr1);     // onChangeButton(bt, dom);
                     break;
                 case "1 W":
-                    onChangeButton(arr2);
+                    var dom = [dateNew,  init_wk._d];
+                    onChangeButton(arr2);     // onChangeButton(bt, dom);
                     break;
                 case "1 MO":
-                    onChangeButton(arr3);
+                    var dom = [dateNew, init_mon._d];
+                    onChangeButton(arr3);     // onChangeButton(bt, dom);
                     break;
                 default:
-                    onChangeButton(data);
+                    var dom = [dateNew, new Date(init_30min)];
+                    onChangeButton(data);     // onChangeButton(bt, dom);
             }
             draw();   // invoking draw()...
         }
         $('body').on('click', '.dropdown-menu li', function () {
             settingNewDomain($(this).text());
         });
-        function onChangeButton(selArr) {
+        function onChangeButton(selArr) {      // function onChangeButton(bt, dom) {
+
+//            $.ajax({
+//                headers: {
+//                    Accept: "application/json",
+//                },
+//                'type': 'GET',
+//                'data': data,
+//                'url': url,
+//                success: function (response) {
+//                    if (response.status == 200) {
+//                        alert("successful ajax call...");
+//                    }
+//                   var res=[];
+//                   for(var i=0; i <= response.length-1; i++) {
+////                       console.log(data, "data");
+//                         if(data[i].date > dom[0]){
+//                             if(data[i].date < dom[1]){
+//                                res.push(data[i]);
+//                             }
+//                         }
+//                   }
+                   
+                
+
+//                    x.domain(dom);
+//                    svg.select("g.candlestick").datum(res).call(candlestick);
+//                    svg.select("g.close.annotation").datum([res[res.length - 1]]).call(closeAnnotation);
+//                    svg.select("g.volume").datum(res).call(volume);
+//                    svg.select("g.crosshair.ohlc").call(ohlcCrosshair).call(zoom).on("dblclick.zoom", null);
+//                },
+//                error: function (response) {
+//                     alert("Ajax error ...");
+//                }
+//            });
+
 //            console.log(selArr, "selArr...");
-            x.domain(techan.scale.plot.time(selArr).domain());
+            x.domain(techan.scale.plot.time(selArr).domain());                                                    
             svg.select("g.candlestick").datum(selArr).call(candlestick);
             svg.select("g.close.annotation").datum([selArr[selArr.length - 1]]).call(closeAnnotation);
             svg.select("g.volume").datum(selArr).call(volume);
@@ -425,3 +472,7 @@ function loadCandleChart(options) {
         }
     });
 } // end of loadCandleChart()
+
+
+
+
