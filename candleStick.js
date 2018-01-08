@@ -43,7 +43,7 @@ function loadCandleChart(options) {
             .xScale(x)
             .yScale(yVolume);
 
-    var xAxis = d3.axisBottom(x);
+    var xAxis = d3.axisBottom(x).tickFormat(d3.timeFormat("%H:%M"));
 // btime annotations
     var timeAnnotation = techan.plot.axisannotation()
             .axis(xAxis)
@@ -303,8 +303,6 @@ function loadCandleChart(options) {
 //                             }
 //                         }
 //                   }
-                   
-                
 
 //                    x.domain(dom);
 //                    svg.select("g.candlestick").datum(res).call(candlestick);
@@ -359,7 +357,7 @@ function loadCandleChart(options) {
 //          $( ".y_axis" ).draggable({ cursor: "dragging" });
         var yNo = d3.event.y;
         dArr.push(yNo);
-        if (dArr[dArr.length - 1] > dArr[dArr.length - 2]) {
+        if (dArr[dArr.length - 1] >= dArr[dArr.length - 2]) {
             drag_Y_Down();
         } else {
             drag_Y_Up();
@@ -368,17 +366,18 @@ function loadCandleChart(options) {
     }
 //    functions to change the heights of candles on dragging of Y_axis    
     function drag_Y_Down() {
-        if (zoomfactor >= 0.3) {
-            zoomfactor = zoomfactor - 0.08
-        } else {
-            zoomfactor = 0.1;
-        }
-        zoomlistenerYaxis.scaleTo(d3.select("#candle"), zoomfactor);
+        if(zoomfactor >= 0.04){     
+          zoomfactor = zoomfactor - 0.005
+          } else{   
+          zoomfactor= 0.0001;
+//          return;
+          }
+          zoomlistenerYaxis.scaleTo(d3.select("#candle"), zoomfactor);          
         draw();
     }
 
     function drag_Y_Up() {
-        zoomfactor = zoomfactor + 0.08;
+        zoomfactor = zoomfactor + 0.005;
         zoomlistenerYaxis.scaleTo(d3.select("#candle"), zoomfactor);
     }
     ;
