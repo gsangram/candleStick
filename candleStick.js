@@ -49,15 +49,15 @@ function loadCandleChart(options) {
             .axis(xAxis)
             .orient('bottom')
             .format(d3.timeFormat("%H:%M %p"))
-            .width(100)
-            .translate([0, options.plot.height]);
+            .width(80)
+            .translate([0, (options.plot.height)+5]);
 
     var yAxis = d3.axisRight(y);
 
     var ohlcAnnotation = techan.plot.axisannotation()
             .axis(yAxis)
             .orient('right')
-            .format(d3.format(',.2f'))
+//            .format(d3.format(',.2f'))
             .translate([x(1), 0]);
 
     var closeAnnotation = techan.plot.axisannotation()
@@ -67,21 +67,11 @@ function loadCandleChart(options) {
             .format(d3.format(',.2f'))
             .translate([x(1), 0]);
 
-// changing the volume of candleSticks and zoom in/out
-    var volumeAxis = d3.axisLeft(yVolume)
-            .ticks(3)
-//            .tickFormat(d3.format(",.3s"));
-
-    var volumeAnnotation = techan.plot.axisannotation()
-            .axis(volumeAxis)
-            .orient("right")
-            .width(35).translate([x(1), 0]);
-
     var ohlcCrosshair = techan.plot.crosshair()
             .xScale(timeAnnotation.axis().scale())
             .yScale(ohlcAnnotation.axis().scale())
             .xAnnotation(timeAnnotation)
-            .yAnnotation([ohlcAnnotation, volumeAnnotation])
+            .yAnnotation([ohlcAnnotation])
             .verticalWireRange([0, options.plot.height]);
 
     var svg = d3.select(this.container).append("svg")
@@ -89,8 +79,6 @@ function loadCandleChart(options) {
             .attr("width", this.width)
             .attr("height", this.height)
             .attr("viewBox", "0 0 " + this.width + " " + this.height)
-//            .attr("preserveAspectRatio", "xMidYMid meet")
-//            .classed("svg-content-responsive", true);\
 
     svg = svg.append("g").attr("class", "svg_g")
             .attr("transform", "translate(" + options.margin.left + "," + options.margin.top + ")");
@@ -100,14 +88,15 @@ function loadCandleChart(options) {
             .style("x", (options.plot.width))
             .style("y", 0)
             .style("width", options.margin.right)
-            .style("height", options.plot.height).style("fill", "transparent");
+            .style("height", options.plot.height).style("fill", "transparent")
+            .style("shape-rendering", "crispEdges");
 
     //  append rect for x_axis drag behavior    
     svg.append("rect").attr("class", "gx")
             .style("x", 0)
             .style("y", (options.plot.height))
             .style("width", options.plot.width)
-            .style("height", options.margin.bottom).style("fill", "transparent")
+            .style("height", options.margin.bottom).style("fill", "transparent");
 
     var defs = svg.append("defs");
     var aloo = defs.append("clipPath")
@@ -148,16 +137,20 @@ function loadCandleChart(options) {
             .attr("class", "candlestick")
             .attr("clip-path", "url(#ohlcClip)");
 
-    ohlcSelection.append("g")
-            .attr("class", "volume axis");
+//    ohlcSelection.append("g")
+//            .attr("class", "volume axis");
 
     // Add trendlines and other interactions last to be above zoom pane
     svg.append('g')
             .attr("class", "crosshair ohlc")
-            .append("line").attr("x1", 0).attr("y1", 0).attr("x2", options.plot.width + 10).attr("y2", 0).style("stroke", "white").style("stroke-width", "2px")
+            .append("line").attr("x1", 0).attr("y1", 0)
+            .attr("x2", options.plot.width + 10).attr("y2", 0)
+            .style("stroke", "white").style("stroke-width", "2px")
     svg.append('g')
             .attr("class", "crosshair ohlc")
-            .append("line").attr("x1", 0).attr("y1", 0).attr("x2", options.plot.width + 20).attr("y2", 0).style("stroke", "black").style("opacity", 0.5);
+            .append("line").attr("x1", 0).attr("y1", 0)
+            .attr("x2", options.plot.width + 20).attr("y2", 0)
+            .style("stroke", "black").style("stroke-width", "1px").style("opacity", 0.5)
 
 
     var parentArr = [];
@@ -166,7 +159,7 @@ function loadCandleChart(options) {
         if (error)
             return;
         var accessor = candlestick.accessor(),
-                indicatorPreRoll = 1;                    // Don't show where indicators don't have data            
+                indicatorPreRoll = 0.2;                    // Don't show where indicators don't have data            
         console.log(data, "swag...");
 
         data.forEach(function (d) {
@@ -446,7 +439,6 @@ function loadCandleChart(options) {
     function draw() {
         svg.select("g.x.axis").call(xAxis);
         svg.select("g.ohlc .y_axis").call(yAxis);
-        svg.select("g.volume.axis").call(volumeAxis);
 // We know the data does not change, a simple refresh that does not perform data joins will suffice.
         svg.select("g.candlestick").call(candlestick.refresh);
         svg.select("g.close.annotation").call(closeAnnotation.refresh);
@@ -459,7 +451,6 @@ function loadCandleChart(options) {
         var l_date = new Date(Date.parse(x.invert(mouse[0])));
         var ohcl_date = l_date.toString();
         parentArr[0].forEach(function (d, i) {
-//            console.log(d, "aaaaaaaaaaaaaa");
             if (d.date.toString() == ohcl_date) {
                 $("#o_ohlc").html(" " + d.open);
                 $("#h_ohlc").html(" " + d.high);
@@ -474,7 +465,6 @@ function loadCandleChart(options) {
     var chart = d3.select("svg");
     d3.select(window).on("resize", function () {
         var targetWidth = window.innerWidth;
-//                chart.node().getBoundingClientRect().width;
         if (targetWidth <= this.width) {
             chart.attr("width", targetWidth);
             chart.attr("height", targetWidth / aspect);

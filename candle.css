@@ -1,117 +1,128 @@
 body {
-        font: 10px sans-serif;
-    }
-/*    text {
-        fill: black;
-    }*/
-    text.symbol {
-        fill: #BBBBBB;
-    }
-    path {
-        fill: none;
-        stroke-width: 1;
-    }
-    path.candle {
-        stroke: #000000;
-    }
-    path.candle.body {
-        stroke-width: 1px;
-    }
-    path.candle.up {
-        fill: #00AA00;
-        stroke: #000000;
-        /*border-color: solidblack 1px;*/
-    }
-    path.candle.down {
-        fill: #FF0000;
-        stroke: #000000;
-    }
-    .close.annotation.up path {
-        fill: #00AA00;
-    }
-    path.volume.down {
-        stroke: black;
-        stroke-width: 1px;
-        opacity: 0.5;
-        fill: red;
-    }
-    path.volume.up {
-        stroke: black;
-        stroke-width: 1px;
-        opacity: 0.5;
-        fill: green;
-    }
-    
-    path.volume.equal {
-        stroke: black;
-        stroke-width: 1px soolid black;
-        opacity: 0.3;
-        fill: orange;
-    }
-    
-    .indicator-plot path.line {
-        fill: none;
-        stroke-width: 1;
-    }
-    path.signal {
-        stroke: #FF9999;
-    }
-    path.zero {
-        stroke: #BBBBBB;
-        stroke-dasharray: 0;
-        stroke-opacity: 0.5;
-    }
-    path.difference {
-        fill: #BBBBBB;
-        opacity: 0.5;
-    }
-    path.overbought, path.oversold {
-        stroke: #FF9999;
-        stroke-dasharray: 5, 5;
-    }
-    path.middle, path.zero {
-        stroke: #BBBBBB;
-        stroke-dasharray: 5, 5;
-    }
-    .interaction .body {
-        cursor: move;
-    }
-    .crosshair {  
-        cursor: crosshair;
-    }
-    .crosshair path.wire {
-        stroke: darkgrey;
-        stroke-dasharray: 3, 3;
-        opacity: 1
-    }
-    .crosshair .axisannotation path {
-        stroke: black;
-        fill: black;
-    }
+    font: 10px sans-serif;
+}
+text {
+    fill: #909090;
+}
+text.symbol {
+    fill: #BBBBBB;
+}
+
+path.candle {
+    stroke: #000000;
+}
+path.candle.body {
+    stroke-width: 1px;
+}
+path.candle.up {
+    fill: #00AA00;
+    stroke: #000000;
+    /*border-color: solidblack 1px;*/
+}
+path.candle.down {
+    fill: #FF0000;
+    stroke: #000000;
+}
+.close.annotation.up path {
+    fill: red;
+}
+.close.annotation.up g.data text{
+    float: right;
+    font-size: 12px;
+    line-height:1;
+    fill: white;
+
+}
+
+path.volume.down {
+    stroke: black;
+    stroke-width: 1px;
+    opacity: 0.5;
+    fill: red;
+}
+path.volume.up {
+    stroke: black;
+    stroke-width: 1px;
+    opacity: 0.5;
+    fill: green;
+}
+
+path.volume.equal {
+    stroke: black;
+    stroke-width: 1px soolid grey;
+    opacity: 0.2;
+    fill: orange;
+}
+
+.indicator-plot path.line {
+    fill: none;
+    stroke-width: 1;
+}
+path.signal {
+    stroke: #FF9999;
+}
+path.zero {
+    stroke: #BBBBBB;
+    stroke-dasharray: 0;
+    stroke-opacity: 0.5;
+}
+path.difference {
+    fill: #BBBBBB;
+    opacity: 0.5;
+}
+path.overbought, path.oversold {
+    stroke: #FF9999;
+    stroke-dasharray: 5, 5;
+}
+path.middle, path.zero {
+    stroke: #BBBBBB;
+    stroke-dasharray: 5, 5;
+}
+.interaction .body {
+    cursor: move;
+}
+.crosshair {  
+    cursor: crosshair;
+}
+.crosshair path.wire {
+    stroke: darkgrey;
+    stroke-dasharray: 3, 3;
+    opacity: 1
+}
+.crosshair .axisannotation path {
+    stroke: black;
+    fill: black;    
+}
     .crosshair text{
-        stroke:  white;       
+        stroke:  white
+        font-weight: normal;
     }
-    .tick line{
-        opacity: 0.2
-    }
-    #candledrop{
-        width: 86%;
-        background-color:  black;
-    }
-/*    .data path{
-        fill: red;
-    }*/
-    #legend_values{
-        float : right; 
-        padding-right: 30%;
-    }
-    #legend_dropdown{
-        margin-left: 50px;
-        display: inline-block;
-    }
-    #legend_values li{
-        display: inline-block;
-        margin-right: 100px;
-        opacity: 0.5;
-        width:90px;
-    }
+/*.axisannotation.x{
+    stroke:  green; 
+    font-weight: normal;
+}*/
+.tick line{
+    opacity: 0.1
+}
+#candledrop{
+    width: 86%;
+    background-color:  black;
+}
+#legend_values{
+    float : right; 
+    padding-right: 30%;
+}
+#legend_dropdown{
+    margin-left: 50px;
+    display: inline-block;
+}
+#legend_values li{
+    display: inline-block;
+    margin-right: 100px;
+    opacity: 0.5;
+    width:90px;
+}
+path {
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
