@@ -44,9 +44,9 @@ body {
     
     path.volume.equal {
         stroke: black;
-        stroke-width: 1px;
-        opacity: 0.4;
-        fill: red;
+        stroke-width: 1px soolid black;
+        opacity: 0.3;
+        fill: orange;
     }
     
     .indicator-plot path.line {

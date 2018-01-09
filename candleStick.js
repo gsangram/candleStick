@@ -90,7 +90,24 @@ function loadCandleChart(options) {
             .attr("height", this.height)
             .attr("viewBox", "0 0 " + this.width + " " + this.height)
 //            .attr("preserveAspectRatio", "xMidYMid meet")
-//            .classed("svg-content-responsive", true);
+//            .classed("svg-content-responsive", true);\
+
+    svg = svg.append("g").attr("class", "svg_g")
+            .attr("transform", "translate(" + options.margin.left + "," + options.margin.top + ")");
+
+//  append rect for y_axis drag behavior
+    svg.append("rect").attr("class", "gy")
+            .style("x", (options.plot.width))
+            .style("y", 0)
+            .style("width", options.margin.right)
+            .style("height", options.plot.height).style("fill", "transparent");
+
+    //  append rect for x_axis drag behavior    
+    svg.append("rect").attr("class", "gx")
+            .style("x", 0)
+            .style("y", (options.plot.height))
+            .style("width", options.plot.width)
+            .style("height", options.margin.bottom).style("fill", "transparent")
 
     var defs = svg.append("defs");
     var aloo = defs.append("clipPath")
@@ -100,9 +117,6 @@ function loadCandleChart(options) {
             .attr("y", 0)
             .attr("width", options.plot.width)
             .attr("height", options.plot.height);
-
-    svg = svg.append("g")
-            .attr("transform", "translate(" + options.margin.left + "," + options.margin.top + ")");
 
     svg.append("g")
             .attr("class", "x axis")
@@ -139,11 +153,11 @@ function loadCandleChart(options) {
 
     // Add trendlines and other interactions last to be above zoom pane
     svg.append('g')
-            .attr("class", "crosshair ohlc").append("line").attr("x1", 0).attr("y1", 0)
-            .attr("x2", options.plot.width + 10).attr("y2", 0).style("stroke", "white").style("stroke-width", "2px")
+            .attr("class", "crosshair ohlc")
+            .append("line").attr("x1", 0).attr("y1", 0).attr("x2", options.plot.width + 10).attr("y2", 0).style("stroke", "white").style("stroke-width", "2px")
     svg.append('g')
-            .attr("class", "crosshair ohlc").append("line").attr("x1", 0).attr("y1", 0)
-            .attr("x2", options.plot.width + 20).attr("y2", 0).style("stroke", "black").style("opacity", 0.5);
+            .attr("class", "crosshair ohlc")
+            .append("line").attr("x1", 0).attr("y1", 0).attr("x2", options.plot.width + 20).attr("y2", 0).style("stroke", "black").style("opacity", 0.5);
 
 
     var parentArr = [];
@@ -169,47 +183,47 @@ function loadCandleChart(options) {
 
 // calculating domain for the dropdown selection        
         var dateNew = data[data.length - 1].date;   // finding last date in json data      
-        console.log(dateNew, "dateNew");
+//        console.log(dateNew, "dateNew");
         var yr = dateNew.getFullYear();  // year of last date
-        console.log(yr, "yr");
+//        console.log(yr, "yr");
         var mon = dateNew.getMonth();      // month of the last date
-        console.log(mon, "mon");
+//        console.log(mon, "mon");
         var noOfdays = new Date(yr, mon, 0).getDate();   // total no. of days of the last date
-        console.log(noOfdays, "noOfdays");
+//        console.log(noOfdays, "noOfdays");
         var ts = dateNew.getTime();  // timestamp of last date
-        console.log(ts, "ts");    
+//        console.log(ts, "ts");    
         var day = dateNew.getDate(); // day of thee month
-        console.log(day, "day");
+//        console.log(day, "day");
         var hr = dateNew.getHours();  //finding hr
-        console.log(hr, "hr");
+//        console.log(hr, "hr");
         var min = dateNew.getMinutes()
-        console.log(min, "min");
+//        console.log(min, "min");
 
 
-        var init_min = moment(dateNew).subtract(50, 'minutes');      
-        console.log(init_min._d,  "date init_min");
-        
+        var init_min = moment(dateNew).subtract(50, 'minutes');
+        console.log(init_min._d, "date init_min");
+
         var init_5min = ts - (5 * 60000 * 50);
         console.log(init_5min, new Date(init_5min), "date init_5min");
-        
+
         var init_15min = ts - (15 * 60000 * 50);
         console.log(init_15min, new Date(init_15min), "date init_15min");
-        
+
         var init_30min = ts - (30 * 60000 * 50);
         console.log(init_30min, new Date(init_30min), "date init_30min");
-        
+
         var init_hr = moment(dateNew).subtract(50, 'hours');
-        console.log(init_hr._d, "date init_hr");  
-        
+        console.log(init_hr._d, "date init_hr");
+
         var init_day = moment(dateNew).subtract(50, 'days');
         console.log(init_day._d, "date init_day");
-        
+
         var init_3day = ts - (3 * 24 * 60 * 60000 * 50);
         console.log(init_3day, new Date(init_3day), "date init_3day");
-        
+
         var init_wk = moment(dateNew).subtract(50, 'weeks');
         console.log(init_wk._d, "date init_wk");
-        
+
         var init_mon = moment(dateNew).subtract(50, 'months');
         console.log(init_mon._d, "init_mon");
 
@@ -237,10 +251,10 @@ function loadCandleChart(options) {
         function settingNewDomain(bt) {
             switch (bt) {
                 case "1 Min":
-                    var dom = [dateNew, init_min._d];  
+                    var dom = [dateNew, init_min._d];
                     onChangeButton(arr1);  // onChangeButton(bt, dom); 
                     break;
-                    case "5 Min":
+                case "5 Min":
                     var dom = [dateNew, new Date(init_5min)];
                     onChangeButton(arr1);    // onChangeButton(bt, dom);
                     break;
@@ -249,7 +263,7 @@ function loadCandleChart(options) {
                     onChangeButton(arr2);     // onChangeButton(bt, dom);
                     break;
                 case "30 Min":
-                    var dom = [dateNew, new Date(init_30min)];   
+                    var dom = [dateNew, new Date(init_30min)];
                     onChangeButton(arr3);     // onChangeButton(bt, dom);
                     break;
                 case "1 Hr":
@@ -265,7 +279,7 @@ function loadCandleChart(options) {
                     onChangeButton(arr1);     // onChangeButton(bt, dom);
                     break;
                 case "1 W":
-                    var dom = [dateNew,  init_wk._d];
+                    var dom = [dateNew, init_wk._d];
                     onChangeButton(arr2);     // onChangeButton(bt, dom);
                     break;
                 case "1 MO":
@@ -303,7 +317,6 @@ function loadCandleChart(options) {
 //                             }
 //                         }
 //                   }
-
 //                    x.domain(dom);
 //                    svg.select("g.candlestick").datum(res).call(candlestick);
 //                    svg.select("g.close.annotation").datum([res[res.length - 1]]).call(closeAnnotation);
@@ -316,7 +329,7 @@ function loadCandleChart(options) {
 //            });
 
             console.log(techan.scale.plot.time(selArr).domain(), "techan.scale.plot.time(selArr).domain()...");
-            x.domain(techan.scale.plot.time(selArr).domain());                                                    
+            x.domain(techan.scale.plot.time(selArr).domain());
             svg.select("g.candlestick").datum(selArr).call(candlestick);
             svg.select("g.close.annotation").datum([selArr[selArr.length - 1]]).call(closeAnnotation);
             svg.select("g.volume").datum(selArr).call(volume);
@@ -331,18 +344,19 @@ function loadCandleChart(options) {
         draw();             // invoking draw()...    
 
     });
-    d3.select(".x.axis").call(d3.zoom().on("zoom", zoomed)).on("dblclick.zoom", null).on("click", null);
-    d3.selectAll(".y_axis").call(d3.drag().on("drag", dragged)).on("dblclick.zoom", null).on("zoom", null);
-//    d3.select("svg").on("wheel", function(d){ console.log("wheeled") });
+    d3.select(".x.axis, .gx").call(d3.zoom().on("zoom", zoomed)).on("dblclick.zoom", null).on("click", null);
+    d3.selectAll(".y_axis, .gy").call(d3.drag().on("drag", dragged)).on("dblclick.zoom", null).on("zoom", null);
 
 //      horizontal zoom behaviour on clickin of buttons 
-    var zoomfactor = 0.2;
+    var zoomfactor = 0.1;
     d3.select("#zoomin").on("click", function () {
+        console.log(zoomfactor, "IN zoomfactor");
         zoomfactor = zoomfactor + 0.1;
         zoomlistener.scaleTo(d3.select("#candle"), zoomfactor);
     });
     d3.select("#zoomout").on("click", function () {
-        if (zoomfactor >= 0.2) {
+        console.log(zoomfactor, "OUT zoomfactor");
+        if (zoomfactor > 0.1) {
             zoomfactor = zoomfactor - 0.1
         } else {
             zoomfactor = 0.1;
@@ -354,7 +368,6 @@ function loadCandleChart(options) {
 //   Invoking function on dragging of Y-axis
     var dArr = [];
     function dragged() {
-//          $( ".y_axis" ).draggable({ cursor: "dragging" });
         var yNo = d3.event.y;
         dArr.push(yNo);
         if (dArr[dArr.length - 1] >= dArr[dArr.length - 2]) {
@@ -366,13 +379,13 @@ function loadCandleChart(options) {
     }
 //    functions to change the heights of candles on dragging of Y_axis    
     function drag_Y_Down() {
-        if(zoomfactor >= 0.04){     
-          zoomfactor = zoomfactor - 0.005
-          } else{   
-          zoomfactor= 0.0001;
+        if (zoomfactor >= 0.04) {
+            zoomfactor = zoomfactor - 0.005
+        } else {
+            zoomfactor = 0.0001;
 //          return;
-          }
-          zoomlistenerYaxis.scaleTo(d3.select("#candle"), zoomfactor);          
+        }
+        zoomlistenerYaxis.scaleTo(d3.select("#candle"), zoomfactor);
         draw();
     }
 
@@ -390,6 +403,7 @@ function loadCandleChart(options) {
 
 //  zoom functionality with rescaling wrt to zoom behaviour for the graph...............
     function zoomed() {
+        console.log(zoomfactor, x.domain().length, "halulai...");
         var len = x.domain().length;
         var count = [];
         for (var l = 0; l <= parentArr[0].length - 1; l++) {
