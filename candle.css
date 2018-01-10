@@ -94,7 +94,9 @@ path.middle, path.zero {
     fill: black;    
 }
     .crosshair text{
-        stroke:  white
+        stroke:  white;
+        font-size: x-small;
+        font-family: Helvetica Narrow, sans-serif;
         font-weight: normal;
     }
 /*.axisannotation.x{

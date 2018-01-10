@@ -50,7 +50,7 @@ function loadCandleChart(options) {
             .orient('bottom')
             .format(d3.timeFormat("%H:%M %p"))
             .width(80)
-            .translate([0, (options.plot.height)+5]);
+            .translate([0, (options.plot.height) + 5]);
 
     var yAxis = d3.axisRight(y);
 
@@ -145,12 +145,7 @@ function loadCandleChart(options) {
             .attr("class", "crosshair ohlc")
             .append("line").attr("x1", 0).attr("y1", 0)
             .attr("x2", options.plot.width + 10).attr("y2", 0)
-            .style("stroke", "white").style("stroke-width", "2px")
-    svg.append('g')
-            .attr("class", "crosshair ohlc")
-            .append("line").attr("x1", 0).attr("y1", 0)
-            .attr("x2", options.plot.width + 20).attr("y2", 0)
-            .style("stroke", "black").style("stroke-width", "1px").style("opacity", 0.5)
+            .style("stroke", "white").style("stroke-width", "2px");
 
 
     var parentArr = [];
@@ -341,9 +336,8 @@ function loadCandleChart(options) {
     d3.selectAll(".y_axis, .gy").call(d3.drag().on("drag", dragged)).on("dblclick.zoom", null).on("zoom", null);
 
 //      horizontal zoom behaviour on clickin of buttons 
-    var zoomfactor = 0.1;
+    var zoomfactor = 1;
     d3.select("#zoomin").on("click", function () {
-        console.log(zoomfactor, "IN zoomfactor");
         zoomfactor = zoomfactor + 0.1;
         zoomlistener.scaleTo(d3.select("#candle"), zoomfactor);
     });
@@ -372,31 +366,35 @@ function loadCandleChart(options) {
     }
 //    functions to change the heights of candles on dragging of Y_axis    
     function drag_Y_Down() {
-        if (zoomfactor >= 0.04) {
-            zoomfactor = zoomfactor - 0.005
+        if (zoomfactor > 0.4) {
+            zoomfactor = zoomfactor - 0.4
         } else {
             zoomfactor = 0.0001;
-//          return;
         }
         zoomlistenerYaxis.scaleTo(d3.select("#candle"), zoomfactor);
         draw();
     }
 
     function drag_Y_Up() {
-        zoomfactor = zoomfactor + 0.005;
+        zoomfactor = zoomfactor + 0.4;
         zoomlistenerYaxis.scaleTo(d3.select("#candle"), zoomfactor);
     }
     ;
-
+    var domArr_y = [];
     function zoomY() {
-        y.domain(d3.event.transform.rescaleY(yInit).domain());
+        var y_domain = d3.event.transform.rescaleY(yInit).domain();
+        domArr_y.push(y_domain);
+        if (domArr_y.length > 1) {
+            domArr_y.splice(0, 1);
+        }
+        y.domain(y_domain);
         draw();
     }
     ;
 
 //  zoom functionality with rescaling wrt to zoom behaviour for the graph...............
     function zoomed() {
-        console.log(zoomfactor, x.domain().length, "halulai...");
+        console.log("initail drgged");
         var len = x.domain().length;
         var count = [];
         for (var l = 0; l <= parentArr[0].length - 1; l++) {
@@ -413,25 +411,68 @@ function loadCandleChart(options) {
             lowArr.push(parentArr[0][m].low);
         }
         ;
-        x.zoomable().domain(d3.event.transform.rescaleX(zoomableInit).domain());
-        if (highArr.length != 0 && lowArr.length != 0) {
-//            y.domain(d3.event.transform.rescaleY(yInit).domain());
-            y.domain([Math.min.apply(null, lowArr), Math.max.apply(null, highArr)]);
-        }
-        ;
-        for (var n = count[count.length - 1]; n <= count[count.length - 1] + len - 1; n++) {
-            highArr.pop(parentArr[0][n].high);
-            lowArr.pop(parentArr[0][n].low);
-        }
-        ;
-        for (var p = 0; p <= parentArr[0].length - 1; p++) {
-            if (x.domain()[0] == parentArr[0][p].date) {
-                count.pop(p);
+
+        var candle_high_val = Math.max.apply(null, highArr);
+        var candle_low_val = Math.min.apply(null, lowArr);
+
+        if (domArr_y.length == 0) {
+
+            x.zoomable().domain(d3.event.transform.rescaleX(zoomableInit).domain());
+            if (highArr.length != 0 && lowArr.length != 0) {
+                y.domain([candle_low_val, candle_high_val]);
             }
             ;
+            for (var n = count[count.length - 1]; n <= count[count.length - 1] + len - 1; n++) {
+                highArr.pop(parentArr[0][n].high);
+                lowArr.pop(parentArr[0][n].low);
+            }
+            ;
+            for (var p = 0; p <= parentArr[0].length - 1; p++) {
+                if (x.domain()[0] == parentArr[0][p].date) {
+                    count.pop(p);
+                };
+            };
+            
+        } else {
+            var highest_y_domain = domArr_y[0][1];
+            var lowest_y_domain = domArr_y[0][0];
+
+// calculating Y-domain values wrt to zooming and dragging         
+            if (highest_y_domain > candle_high_val) {
+                if (lowest_y_domain >= candle_low_val) {
+                    domArr_y.push([candle_low_val, highest_y_domain]);
+                    
+                } else {
+                    domArr_y.push([lowest_y_domain, highest_y_domain]);
+                }
+            } else {
+                if (lowest_y_domain >= candle_low_val) {
+                    domArr_y.push([candle_low_val, candle_high_val]);
+                } else {
+                    domArr_y.push([lowest_y_domain, candle_high_val]);
+                }
+            }
+            if (domArr_y.length > 1) {
+                domArr_y.splice(0, 1);
+            }
+            x.zoomable().domain(d3.event.transform.rescaleX(zoomableInit).domain());
+            y.domain(domArr_y[0]);
+
+            for (var n = count[count.length - 1]; n <= count[count.length - 1] + len - 1; n++) {
+                highArr.pop(parentArr[0][n].high);
+                lowArr.pop(parentArr[0][n].low);
+            }
+            ;
+            for (var p = 0; p <= parentArr[0].length - 1; p++) {
+                if (x.domain()[0] == parentArr[0][p].date) {
+                    count.pop(p);
+                }
+                ;
+            }
+            ;
+            draw();
         }
-        ;
-        draw();
+
     }
     ;
 
