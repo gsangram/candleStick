@@ -147,6 +147,11 @@ function loadCandleChart(options) {
             .attr("x2", options.plot.width + 10).attr("y2", 0)
             .style("stroke", "white").style("stroke-width", "2px");
 
+    svg.append('g')
+            .attr("class", "crosshair ohlc")
+            .append("line").attr("x1", 0).attr("y1", 0)
+            .attr("x2", options.plot.width + 20).attr("y2", 0)
+            .style("stroke", "black").style("stroke-width", "1px").style("opacity", 0.5)
 
     var parentArr = [];
 //    d3.json(this.data, function (error, data) {
@@ -256,27 +261,27 @@ function loadCandleChart(options) {
                     break;
                 case "1 Hr":
                     var dom = [dateNew, init_hr._d];
-                    onChangeButton(arr3);     // onChangeButton(bt, dom);
+                    onChangeButton(arr3);           // onChangeButton(bt, dom);
                     break;
                 case "1 D":
                     var dom = [dateNew, init_day._d];
-                    onChangeButton(arr3);     // onChangeButton(bt, dom);
+                    onChangeButton(arr3);          // onChangeButton(bt, dom);
                     break;
                 case "3 D":
                     var dom = [dateNew, new Date(init_3day)];
-                    onChangeButton(arr1);     // onChangeButton(bt, dom);
+                    onChangeButton(arr1);           // onChangeButton(bt, dom);
                     break;
                 case "1 W":
                     var dom = [dateNew, init_wk._d];
-                    onChangeButton(arr2);     // onChangeButton(bt, dom);
+                    onChangeButton(arr2);             // onChangeButton(bt, dom);
                     break;
-                case "1 MO":
+                case "1 Mo":
                     var dom = [dateNew, init_mon._d];
-                    onChangeButton(arr3);     // onChangeButton(bt, dom);
+                    onChangeButton(arr3);              // onChangeButton(bt, dom);
                     break;
                 default:
                     var dom = [dateNew, new Date(init_30min)];
-                    onChangeButton(data);     // onChangeButton(bt, dom);
+                    onChangeButton(data);              // onChangeButton(bt, dom);
             }
             draw();   // invoking draw()...
         }
@@ -332,7 +337,7 @@ function loadCandleChart(options) {
         draw();             // invoking draw()...    
 
     });
-    d3.select(".x.axis, .gx").call(d3.zoom().on("zoom", zoomed)).on("dblclick.zoom", null).on("click", null);
+    d3.select(".x.axis .tick text, .gx").call(d3.zoom().on("zoom", zoomed)).on("dblclick.zoom", null).on("click", null);
     d3.selectAll(".y_axis, .gy").call(d3.drag().on("drag", dragged)).on("dblclick.zoom", null).on("zoom", null);
 
 //      horizontal zoom behaviour on clickin of buttons 

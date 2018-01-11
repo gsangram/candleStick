@@ -98,7 +98,10 @@ path.middle, path.zero {
     fill: black;    
 }
 .crosshair text{
-    stroke:  white;
+    font-weight: bold;
+    stroke:  #fff;
+    fill: #fff;
+    stroke-width: 0;
     font-size: x-small;
     font-family: Helvetica Narrow, sans-serif;
 }
@@ -131,3 +134,5 @@ path {
     stroke-width: 1;
     shape-rendering: crispEdges;
 }
+
+
