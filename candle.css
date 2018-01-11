@@ -1,6 +1,10 @@
 body {
     font: 10px sans-serif;
 }
+path {
+    fill: none;
+    stroke-width: 1;
+}
 text {
     fill: #909090;
 }
@@ -28,7 +32,7 @@ path.candle.down {
 }
 .close.annotation.up g.data text{
     float: right;
-    font-size: 12px;
+    font-size: 15px;
     line-height:1;
     fill: white;
 
@@ -93,12 +97,11 @@ path.middle, path.zero {
     stroke: black;
     fill: black;    
 }
-    .crosshair text{
-        stroke:  white;
-        font-size: x-small;
-        font-family: Helvetica Narrow, sans-serif;
-        font-weight: normal;
-    }
+.crosshair text{
+    stroke:  white;
+    font-size: x-small;
+    font-family: Helvetica Narrow, sans-serif;
+}
 /*.axisannotation.x{
     stroke:  green; 
     font-weight: normal;

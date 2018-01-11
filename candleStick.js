@@ -357,17 +357,22 @@ function loadCandleChart(options) {
     function dragged() {
         var yNo = d3.event.y;
         dArr.push(yNo);
-        if (dArr[dArr.length - 1] >= dArr[dArr.length - 2]) {
+        console.log(dArr[dArr.length - 1], dArr[dArr.length - 2], "dArr");
+        if (dArr[dArr.length - 1] > dArr[dArr.length - 2]) {
             drag_Y_Down();
-        } else {
+        } else if((dArr[dArr.length - 1] < dArr[dArr.length - 2])){
             drag_Y_Up();
+        }else{
+            return;
         }
-        draw();
+        if(dArr.length > 2){
+            dArr.splice(0, 1);
+        }
     }
 //    functions to change the heights of candles on dragging of Y_axis    
     function drag_Y_Down() {
         if (zoomfactor > 0.4) {
-            zoomfactor = zoomfactor - 0.4
+            zoomfactor = zoomfactor - 0.1
         } else {
             zoomfactor = 0.0001;
         }
@@ -376,7 +381,7 @@ function loadCandleChart(options) {
     }
 
     function drag_Y_Up() {
-        zoomfactor = zoomfactor + 0.4;
+        zoomfactor = zoomfactor + 0.1;
         zoomlistenerYaxis.scaleTo(d3.select("#candle"), zoomfactor);
     }
     ;
@@ -394,7 +399,6 @@ function loadCandleChart(options) {
 
 //  zoom functionality with rescaling wrt to zoom behaviour for the graph...............
     function zoomed() {
-        console.log("initail drgged");
         var len = x.domain().length;
         var count = [];
         for (var l = 0; l <= parentArr[0].length - 1; l++) {
@@ -414,10 +418,10 @@ function loadCandleChart(options) {
 
         var candle_high_val = Math.max.apply(null, highArr);
         var candle_low_val = Math.min.apply(null, lowArr);
-
+        var zoo = [];
+        x.zoomable().domain(d3.event.transform.rescaleX(zoomableInit).domain());    //x-axis rescaling... 
         if (domArr_y.length == 0) {
 
-            x.zoomable().domain(d3.event.transform.rescaleX(zoomableInit).domain());
             if (highArr.length != 0 && lowArr.length != 0) {
                 y.domain([candle_low_val, candle_high_val]);
             }
@@ -427,12 +431,15 @@ function loadCandleChart(options) {
                 lowArr.pop(parentArr[0][n].low);
             }
             ;
+
             for (var p = 0; p <= parentArr[0].length - 1; p++) {
                 if (x.domain()[0] == parentArr[0][p].date) {
                     count.pop(p);
-                };
-            };
-            
+                }
+                ;
+            }
+            ;
+            draw();
         } else {
             var highest_y_domain = domArr_y[0][1];
             var lowest_y_domain = domArr_y[0][0];
@@ -441,22 +448,34 @@ function loadCandleChart(options) {
             if (highest_y_domain > candle_high_val) {
                 if (lowest_y_domain >= candle_low_val) {
                     domArr_y.push([candle_low_val, highest_y_domain]);
-                    
+                    if (highArr.length != 0 && lowArr.length != 0) {
+                        y.domain([candle_low_val, candle_high_val]);
+                    }
+
                 } else {
                     domArr_y.push([lowest_y_domain, highest_y_domain]);
+                    y.domain(domArr_y[0]);
                 }
             } else {
                 if (lowest_y_domain >= candle_low_val) {
                     domArr_y.push([candle_low_val, candle_high_val]);
+                    if (highArr.length != 0 && lowArr.length != 0) {
+                        y.domain([candle_low_val, candle_high_val]);
+                    }
                 } else {
                     domArr_y.push([lowest_y_domain, candle_high_val]);
+                    if (highArr.length != 0 && lowArr.length != 0) {
+                        y.domain([candle_low_val, candle_high_val]);
+                    }
                 }
             }
+
             if (domArr_y.length > 1) {
                 domArr_y.splice(0, 1);
             }
+            ;
+
             x.zoomable().domain(d3.event.transform.rescaleX(zoomableInit).domain());
-            y.domain(domArr_y[0]);
 
             for (var n = count[count.length - 1]; n <= count[count.length - 1] + len - 1; n++) {
                 highArr.pop(parentArr[0][n].high);
@@ -472,6 +491,7 @@ function loadCandleChart(options) {
             ;
             draw();
         }
+
 
     }
     ;
