@@ -41,20 +41,20 @@ path.candle.down {
 path.volume.down {
     stroke: black;
     stroke-width: 1px;
-    opacity: 0.5;
+    opacity: 0.3;
     fill: red;
 }
 path.volume.up {
     stroke: black;
     stroke-width: 1px;
-    opacity: 0.5;
+    opacity: 0.3;
     fill: green;
 }
 
 path.volume.equal {
     stroke: black;
     stroke-width: 1px soolid grey;
-    opacity: 0.2;
+    opacity: 0.3;
     fill: orange;
 }
 

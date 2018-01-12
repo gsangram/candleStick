@@ -154,7 +154,7 @@ function loadCandleChart(options) {
 
     var parentArr = [];
 //    d3.json(this.data, function (error, data) {
-    d3.json("api.json", function (error, data) {
+    d3.json("candle.json", function (error, data) {
         if (error)
             return;
         var accessor = candlestick.accessor(),
@@ -162,8 +162,8 @@ function loadCandleChart(options) {
         console.log(data, "swag...");
 
         data.forEach(function (d) {
-//                d.date= parseDate(d.date),
-            d.date = new Date(d.date),
+                d.date= parseDate(d.date),
+//            d.date = new Date(d.date),
                     d.open = d.open,
                     d.high = d.high,
                     d.low = d.low,
@@ -353,7 +353,7 @@ function loadCandleChart(options) {
         zoomlistener.scaleTo(d3.select("#candle"), zoomfactor);
     });
     d3.select("#zoomout").on("click", function () {
-        console.log(zoomfactor, "OUT zoomfactor");
+//        console.log(zoomfactor, "OUT zoomfactor");
         if (zoomfactor > 0.1) {
             zoomfactor = zoomfactor - 0.1
         } else {
