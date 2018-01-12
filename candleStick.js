@@ -343,7 +343,7 @@ function loadCandleChart(options) {
         draw();             // invoking draw()...    
 
     });
-    d3.selectAll(".x.axis .tick text, .gx").call(d3.zoom().on("zoom", zoomed)).on("dblclick.zoom", null).on("click", null);
+    d3.selectAll(".x.axis, .gx").call(d3.zoom().on("zoom", zoomed)).on("dblclick.zoom", null).on("click", null);
     d3.selectAll(".y_axis, .gy").call(d3.drag().on("drag", dragged)).on("dblclick.zoom", null).on("zoom", null);
 
 //      horizontal zoom behaviour on clickin of buttons 
@@ -353,7 +353,6 @@ function loadCandleChart(options) {
         zoomlistener.scaleTo(d3.select("#candle"), zoomfactor);
     });
     d3.select("#zoomout").on("click", function () {
-//        console.log(zoomfactor, "OUT zoomfactor");
         if (zoomfactor > 0.1) {
             zoomfactor = zoomfactor - 0.1
         } else {
@@ -382,8 +381,8 @@ function loadCandleChart(options) {
     }
 //    functions to change the heights of candles on dragging of Y_axis    
     function drag_Y_Down() {
-        if (zoomfactor > 0.4) {
-            zoomfactor = zoomfactor - 0.1
+        if (zoomfactor > 0.01) {
+            zoomfactor = zoomfactor - 0.01
         } else {
             zoomfactor = 0.0001;
         }
@@ -392,7 +391,7 @@ function loadCandleChart(options) {
     }
 
     function drag_Y_Up() {
-        zoomfactor = zoomfactor + 0.1;
+        zoomfactor = zoomfactor + 0.01;
         zoomlistenerYaxis.scaleTo(d3.select("#candle"), zoomfactor);
     }
     ;
