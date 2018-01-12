@@ -11,8 +11,8 @@ function loadCandleChart(options) {
     } else {
         console.error('candleStick Chart Initialization Error : candleStick Chart Params Not Defined');
         return false;
-    }
-    ;
+    };
+    
     // on click of dropdown 
     $(".dropdown-menu li a").click(function () {
         $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
@@ -43,7 +43,8 @@ function loadCandleChart(options) {
             .xScale(x)
             .yScale(yVolume);
 
-    var xAxis = d3.axisBottom(x).tickFormat(d3.timeFormat("%H:%M"));
+    var xAxis = d3.axisBottom(x).tickFormat(d3.timeFormat("%H:%M")).tickPadding(5).ticks(5);
+    
 // btime annotations
     var timeAnnotation = techan.plot.axisannotation()
             .axis(xAxis)
@@ -52,7 +53,7 @@ function loadCandleChart(options) {
             .width(80)
             .translate([0, (options.plot.height) + 5]);
 
-    var yAxis = d3.axisRight(y);
+    var yAxis = d3.axisRight(y).tickPadding(10).ticks(5);
 
     var ohlcAnnotation = techan.plot.axisannotation()
             .axis(yAxis)
@@ -109,9 +110,9 @@ function loadCandleChart(options) {
 
     svg.append("g")
             .attr("class", "x axis")
-            .attr("transform", "translate(0," + options.plot.height + ")")
+            .attr("transform", "translate(0," + (options.plot.height  +5) + ")")
             .append("line")
-            .call(xAxis.tickSize(-(options.plot.height)));
+            .call(xAxis.tickSize(-(options.plot.height)-5));
 
     var ohlcSelection = svg.append("g")
             .attr("class", "ohlc")
@@ -119,7 +120,8 @@ function loadCandleChart(options) {
 
     ohlcSelection.append("g")
             .attr("class", "y_axis")
-            .attr("transform", "translate(" + x(1) + ",0)")
+//            .attr("transform", "translate( "+(options.plot.width) +", 0)")
+            .attr("transform", "translate(" + x(1)  + ",0)")
             .call(yAxis.tickSize(-(options.plot.width)))
             .append("text")
             .attr("transform", "rotate(-90)")
@@ -135,10 +137,7 @@ function loadCandleChart(options) {
 
     ohlcSelection.append("g")
             .attr("class", "candlestick")
-            .attr("clip-path", "url(#ohlcClip)");
-
-//    ohlcSelection.append("g")
-//            .attr("class", "volume axis");
+            .attr("clip-path", "url(#ohlcClip)"); 
 
     // Add trendlines and other interactions last to be above zoom pane
     svg.append('g')
@@ -241,6 +240,8 @@ function loadCandleChart(options) {
         }
 // setting default domain on loading        
         onChangeButton(data);
+//        var dom= [new Date(init_30min), dateNew];
+//        onChangeButton("30 Min", dom);
         function settingNewDomain(bt) {
             switch (bt) {
                 case "1 Min":
@@ -285,9 +286,11 @@ function loadCandleChart(options) {
             }
             draw();   // invoking draw()...
         }
+        
         $('body').on('click', '.dropdown-menu li', function () {
             settingNewDomain($(this).text());
         });
+        
         function onChangeButton(selArr) {      // function onChangeButton(bt, dom) {
 
 //            $.ajax({
@@ -311,6 +314,7 @@ function loadCandleChart(options) {
 //                         }
 //                   }
 //                    x.domain(dom);
+//                    y.domain(techan.scale.plot.ohlc(res.slice(indicatorPreRoll)).domain());
 //                    svg.select("g.candlestick").datum(res).call(candlestick);
 //                    svg.select("g.close.annotation").datum([res[res.length - 1]]).call(closeAnnotation);
 //                    svg.select("g.volume").datum(res).call(volume);
@@ -321,15 +325,17 @@ function loadCandleChart(options) {
 //                }
 //            });
 
-            console.log(techan.scale.plot.time(selArr).domain(), "techan.scale.plot.time(selArr).domain()...");
-            x.domain(techan.scale.plot.time(selArr).domain());
+//            console.log(techan.scale.plot.time(selArr).domain(), "techan.scale.plot.time(selArr).domain()...");
+            x.domain(techan.scale.plot.time(selArr).domain());           
+            y.domain(techan.scale.plot.ohlc(selArr.slice(indicatorPreRoll)).domain());
+            
             svg.select("g.candlestick").datum(selArr).call(candlestick);
             svg.select("g.close.annotation").datum([selArr[selArr.length - 1]]).call(closeAnnotation);
             svg.select("g.volume").datum(selArr).call(volume);
             svg.select("g.crosshair.ohlc").call(ohlcCrosshair).call(zoom).on("dblclick.zoom", null);
         }
 
-        y.domain(techan.scale.plot.ohlc(data.slice(indicatorPreRoll)).domain()).nice();
+//        y.domain(techan.scale.plot.ohlc(data.slice(indicatorPreRoll)).domain());
         yVolume.domain(techan.scale.plot.volume(data).domain());
         // Stash for zooming
         zoomableInit = x.zoomable().domain([indicatorPreRoll, data.length]).copy();             // Zoom in a little to hide indicator preroll
@@ -337,7 +343,7 @@ function loadCandleChart(options) {
         draw();             // invoking draw()...    
 
     });
-    d3.select(".x.axis .tick text, .gx").call(d3.zoom().on("zoom", zoomed)).on("dblclick.zoom", null).on("click", null);
+    d3.selectAll(".x.axis .tick text, .gx").call(d3.zoom().on("zoom", zoomed)).on("dblclick.zoom", null).on("click", null);
     d3.selectAll(".y_axis, .gy").call(d3.drag().on("drag", dragged)).on("dblclick.zoom", null).on("zoom", null);
 
 //      horizontal zoom behaviour on clickin of buttons 

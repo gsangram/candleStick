@@ -1,5 +1,75 @@
-     
-    .stx-btn,
+.stx-nav {
+    height: 50px
+}
+
+.stx-toolbar {
+    height: 36px;
+    padding: 9px 0 0 0
+}
+
+.stx-nav {
+    width: 1000px;
+    position: relative;
+    border: solid 1px;
+    background: #5b656b;
+    background: -webkit-gradient(linear, left top, left bottom, from(#5b656b), to(#424b50));
+    background: -moz-linear-gradient(top, #5b656b, #424b50);
+    background: -o-linear-gradient(top, #5b656b, #424b50)
+}
+
+.stx-nav .stx-search,
+.stx-nav .stx-menus {
+    display: inline-block;
+    margin: 0;
+    padding: 0
+}
+
+.stx-nav .stx-menus {
+    float: right;
+    margin-right: 10px;
+    
+}
+
+.stx-nav .stx-search,
+.stx-nav #periodBtn,
+.stx-nav .stx-menus {
+    margin-top: 10px
+}
+
+.stx-nav .stx-btn.stx-menu-btn,
+.stx-nav .stx-nav-ico {
+    border-color: rgba(153, 153, 153, .4);
+    color: #efefef
+}
+
+.stx-nav .stx-btn.stx-menu-btn:hover,
+.stx-nav .stx-nav-ico:hover {
+    border-color: rgba(153, 153, 153, .8);
+    color: #fff
+}
+
+.stx-nav .stx-btn.stx-menu-btn:active {
+    color: #fff
+}
+
+.stx-nav .stx-btn.stx-menu-btn>em {
+    border-left: 1px dotted rgba(153, 153, 153, .5);
+    opacity: 1;
+    filter: none;
+    -ms-filter: none
+}
+
+.stx-nav .stx-btn.stx-menu-btn:hover>em {
+    border-left: 1px dotted rgba(153, 153, 153, .8)
+}
+
+.stx-nav .stx-search {
+    margin-left: 15px;
+    position: relative
+}   
+
+
+.stx-btn,
 .stx-btn>span {
     display: inline-block;
     cursor: pointer;
@@ -9,7 +79,7 @@
 }
 
 .stx-btn {
-        width: 1400;
+    
     padding: 0 8px;
     border: solid 1px #ddd;
     font-weight: bold;
@@ -205,76 +275,7 @@
     position: relative;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px
-}    
-    
-.stx-nav {
-    height: 50px
-}
-
-.stx-toolbar {
-    height: 36px;
-    padding: 9px 0 0 0
-}
-
-.stx-nav {
-    position: relative;
-    border: solid 1px;
-    background: #5b656b;
-    background: -webkit-gradient(linear, left top, left bottom, from(#5b656b), to(#424b50));
-    background: -moz-linear-gradient(top, #5b656b, #424b50);
-    background: -o-linear-gradient(top, #5b656b, #424b50)
-}
-
-.stx-nav .stx-search,
-.stx-nav .stx-menus {
-    display: inline-block;
-    margin: 0;
-    padding: 0
-}
-
-.stx-nav .stx-menus {
-    float: right;
-    margin-right: 10px;
-    
-}
-
-.stx-nav .stx-search,
-.stx-nav #periodBtn,
-.stx-nav .stx-menus {
-    margin-top: 10px
-}
-
-.stx-nav .stx-btn.stx-menu-btn,
-.stx-nav .stx-nav-ico {
-    border-color: rgba(153, 153, 153, .4);
-    color: #efefef
-}
-
-.stx-nav .stx-btn.stx-menu-btn:hover,
-.stx-nav .stx-nav-ico:hover {
-    border-color: rgba(153, 153, 153, .8);
-    color: #fff
-}
-
-.stx-nav .stx-btn.stx-menu-btn:active {
-    color: #fff
-}
-
-.stx-nav .stx-btn.stx-menu-btn>em {
-    border-left: 1px dotted rgba(153, 153, 153, .5);
-    opacity: 1;
-    filter: none;
-    -ms-filter: none
-}
-
-.stx-nav .stx-btn.stx-menu-btn:hover>em {
-    border-left: 1px dotted rgba(153, 153, 153, .8)
-}
-
-.stx-nav .stx-search {
-    margin-left: 15px;
-    position: relative
-}
+}     
 
 input#symbol {
     text-transform: uppercase;
@@ -300,8 +301,8 @@ input#symbol {
 }
 
 .stx-nav .stx-btn.stx-menu-btn#cogBtn {
-    background-image: url(/scripts/bittrex2/vendor/chartiq/img/stx-sprite.png);
-    width: 27px;
+    background-image: url(img/stx-sprite.png);
+    width: 45px;
     padding: 0 20px 0 0;
     background-position: -35px -118px
 }
@@ -657,4 +658,60 @@ li.stxLookupFilter {
 
 .ciqColorPicker {
     z-index: 205
+}
+
+.stx-btn#shareBtn {
+    /*position: absolute;*/
+    /*top: 0px;*/
+    right: 10px;
+    background: rgba(98, 108, 116, .45);
+    color: #fff;
+    font-size: 12px;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .2);
+    margin: 0;
+    padding: 0 4px 0 10px;
+    transition: color .25s, border .25s, background .25s, box-shadow .25s;
+    -webkit-transition: color .25s, border .25s, background .25s, box-shadow .25s
+}
+
+.stx-btn#shareBtn:hover {
+    background: rgba(98, 108, 116, .7);
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .1), inset 0 10px 10px rgba(255, 255, 255, .2);
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .1), inset 0 10px 10px rgba(255, 255, 255, .2);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .1), inset 0 10px 10px rgba(255, 255, 255, .2)
+}
+
+.stx-btn#shareBtn:active {
+    -webkit-box-shadow: inset 0 -8px 10px rgba(255, 255, 255, .1);
+    -moz-box-shadow: inset 0 -8px 10px rgba(255, 255, 255, .1);
+    box-shadow: inset 0 -8px 10px rgba(255, 255, 255, .1)
+}
+
+.stx-btn#shareBtn span {
+    float: right;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background: url(img/stx-sprite.png);
+    background-position: -98px -116px;
+    margin-left: 4px
+}
+
+.stx-btn.loading#shareBtn {
+    background: #fff;
+    color: #666;
+    text-shadow: none;
+    border-color: #ccc;
+    cursor: default
+}
+
+.stx-btn.loading#shareBtn:hover {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none
+}
+
+.stx-btn.loading#shareBtn span {
+    background: url(img/stx-loading.gif);
+    cursor: default
 }
