@@ -112,7 +112,7 @@ function loadCandleChart(options) {
             .attr("class", "x axis")
             .attr("transform", "translate(0," + (options.plot.height  +5) + ")")
             .append("line")
-            .call(xAxis.tickSize(-(options.plot.height)-5));
+            .call(xAxis.tickSize(-(options.plot.height)-5).ticks(5));
 
     var ohlcSelection = svg.append("g")
             .attr("class", "ohlc")
@@ -246,7 +246,7 @@ function loadCandleChart(options) {
             switch (bt) {
                 case "1 Min":
                     var dom = [dateNew, init_min._d];
-                    onChangeButton(arr1);  // onChangeButton(bt, dom); 
+                    onChangeButton(data);  // onChangeButton(bt, dom); 
                     break;
                 case "5 Min":
                     var dom = [dateNew, new Date(init_5min)];
@@ -327,7 +327,7 @@ function loadCandleChart(options) {
 
 //            console.log(techan.scale.plot.time(selArr).domain(), "techan.scale.plot.time(selArr).domain()...");
             x.domain(techan.scale.plot.time(selArr).domain());           
-            y.domain(techan.scale.plot.ohlc(selArr.slice(indicatorPreRoll)).domain());
+//            y.domain(techan.scale.plot.ohlc(selArr.slice(indicatorPreRoll)).domain());
             
             svg.select("g.candlestick").datum(selArr).call(candlestick);
             svg.select("g.close.annotation").datum([selArr[selArr.length - 1]]).call(closeAnnotation);
@@ -335,7 +335,7 @@ function loadCandleChart(options) {
             svg.select("g.crosshair.ohlc").call(ohlcCrosshair).call(zoom).on("dblclick.zoom", null);
         }
 
-//        y.domain(techan.scale.plot.ohlc(data.slice(indicatorPreRoll)).domain());
+        y.domain(techan.scale.plot.ohlc(data.slice(indicatorPreRoll)).domain());
         yVolume.domain(techan.scale.plot.volume(data).domain());
         // Stash for zooming
         zoomableInit = x.zoomable().domain([indicatorPreRoll, data.length]).copy();             // Zoom in a little to hide indicator preroll
@@ -483,16 +483,15 @@ function loadCandleChart(options) {
 
             if (domArr_y.length > 1) {
                 domArr_y.splice(0, 1);
-            }
-            ;
+            };
 
             x.zoomable().domain(d3.event.transform.rescaleX(zoomableInit).domain());
 
             for (var n = count[count.length - 1]; n <= count[count.length - 1] + len - 1; n++) {
                 highArr.pop(parentArr[0][n].high);
                 lowArr.pop(parentArr[0][n].low);
-            }
-            ;
+            };
+            
             for (var p = 0; p <= parentArr[0].length - 1; p++) {
                 if (x.domain()[0] == parentArr[0][p].date) {
                     count.pop(p);

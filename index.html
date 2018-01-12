@@ -9,7 +9,10 @@
         <script src="http://d3js.org/d3.v4.min.js"></script>
         <link href="candle.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" >-->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>-->
+
         <link href="nav_bar.css" rel="stylesheet" type="text/css"/>
         <script src="http://techanjs.org/techan.min.js"></script>
         <script src="candleStick.js" type="text/javascript"></script>
@@ -33,23 +36,20 @@
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1 MO</a></li>
 
             </ul>
-        </div>-->
-        
-             
-        
+        </div>-->       
         
         <div class="stx-nav">
-            <div id="periodBtn" class="stx-btn stx-menu-btn stxMenu" data-toggle="dropdown">
-                <!--30 Min<em></em>-->
-                <a href="javascript:void(0);" class="stx-btn stx-menu-btn stxMenu" data-toggle="dropdown">30 Min</a>
-                <ul id="periodicity" class="dropdown-menu periodicity menuSelect menuOutline">
+            <div id="periodBtn" class="custom-dropdown" data-toggle="dropdown">
+                 <!--30 Min<em></em>-->
+                <a href="javascript:void(0);" class="dropdown-toggle stx-btn stx-menu-btn stxMenu" data-toggle="dropdown">30 Min<em></em></a>
+                <ul id="periodicity" class="periodicity menuSelect menuOutline dropdown-menu">
+                    <!--<ul class="dropdown-menu" role="menu" aria-labelledby="menu1" >-->
                     <li>1 D</li>
                     <li>3 D</li>
                     <li>1 W</li>
                     <li>1 Mo</li>
                     <li class="stx-menu-divider"></li>
                     <li>1 Hr</li>
-                    
                     <li class="stx-menu-divider"></li>
                     <li>1 Min</li>
                     <li>5 Min</li>
@@ -58,14 +58,8 @@
                 </ul>
             </div>
 
-            <!-- These are very basic sample menus. You may replace these with another menuing system. Just follow the same onClick convention
-            or provide proxy functions that call the same code-->
-
             <div class="stx-menus">
-
-                <!-- Chart sharing is available as a plug in. It requires stxShare.js. Please contact our account manager for more details -->
                 <div id="shareBtn" class="stx-btn stx-menu-btn" style=""><span class="stx-ico"></span>Share</div>
-
                 <div class="stx-btn stx-menu-btn stxMenu">
                     Chart<em></em>
                     <ul id="chart-display" class="chart-display menuSelect menuOutline" style="display:none">
@@ -99,32 +93,32 @@
                             <li stxtoggle="studyDialog(this, 'Intraday Mtm');">Intraday Momentum Index</li>
                         </ul>
                         <ul class="col">
-                            <li stxtoggle="studyDialog(this, 'Keltner');">Keltner Channel</li>
-                            <li stxtoggle="studyDialog(this, 'Lin Fcst');">Linear Reg Forecast</li>
-                            <li stxtoggle="studyDialog(this, 'Lin R2');">Linear Reg R2</li>
-                            <li stxtoggle="studyDialog(this, 'macd');">MACD</li>
-                            <li stxtoggle="studyDialog(this, 'Momentum');">Momentum Indicator</li>
-                            <li stxtoggle="studyDialog(this, 'M Flow');">Money Flow Index</li>
-                            <li stxtoggle="studyDialog(this, 'ma');">Moving Average</li>
-                            <li stxtoggle="studyDialog(this, 'MA Env');">Moving Average Envelope</li>
-                            <li stxtoggle="studyDialog(this, 'On Bal Vol');">On Balance Volume</li>
-                            <li stxtoggle="studyDialog(this, 'PSAR');">Parabolic SAR</li>
-                            <li stxtoggle="studyDialog(this, 'Price Vol');">Price Volume Trend</li>
-                            <li stxtoggle="studyDialog(this, 'RAVI');">RAVI</li>
+                            <li >Keltner Channel</li>
+                            <li >Linear Reg Forecast</li>
+                            <li >Linear Reg R2</li>
+                            <li >MACD</li>
+                            <li >Momentum Indicator</li>
+                            <li >Money Flow Index</li>
+                            <li >Moving Average</li>
+                            <li >Moving Average Envelope</li>
+                            <li >On Balance Volume</li>
+                            <li >Parabolic SAR</li>
+                            <li >Price Volume Trend</li>
+                            <li >RAVI</li>
                         </ul>
                         <ul class="col">
-                            <li stxtoggle="studyDialog(this, 'rsi');">RSI</li>
-                            <li stxtoggle="studyDialog(this, 'Schaff');">Schaff Trend Cycle</li>
-                            <li stxtoggle="studyDialog(this, 'STD Dev');">Standard Deviation</li>
-                            <li stxtoggle="studyDialog(this, 'stochastics');">Stochastics</li>
-                            <li stxtoggle="studyDialog(this, 'Stch Mtm');">Stochastic Momentum Index</li>
-                            <li stxtoggle="studyDialog(this, 'Swing');">Swing Index</li>
-                            <li stxtoggle="studyDialog(this, 'Trade Vol');">Trade Volume Index</li>
-                            <li stxtoggle="studyDialog(this, 'vol undr');">Vol Underlay<span class="stx-remove-study" id="vol-undr" style="display: inline-block;"></span></li>
-                            <li stxtoggle="studyDialog(this, 'vchart');">Volume</li>
-                            <li stxtoggle="studyDialog(this, 'Vol Osc');">Volume Oscillator</li>
-                            <li stxtoggle="studyDialog(this, 'Vol ROC');">Volume Rate of Change</li>
-                            <li stxtoggle="studyDialog(this, 'Williams %R');">Williams %R</li>
+                            <li >RSI</li>
+                            <li >Schaff Trend Cycle</li>
+                            <li >Standard Deviation</li>
+                            <li >Stochastics</li>
+                            <li >Stochastic Momentum Index</li>
+                            <li >Swing Index</li>
+                            <li >Trade Volume Index</li>
+                            <li >Vol Underlay<span class="stx-remove-study" id="vol-undr" style="display: inline-block;"></span></li>
+                            <li >Volume</li>
+                            <li >Volume Oscillator</li>
+                            <li >Volume Rate of Change</li>
+                            <li >Williams %R</li>
                         </ul>
                     </div>
                 </div>
@@ -132,7 +126,7 @@
                     &nbsp;<em></em>
                     <ul id="cog" class="cog menuSelect menuOutline" style="display:none">
                         <li class="stx-heading">Timezone</li>
-                        <li stxtoggle="STX.DialogManager.displayDialog('timezoneDialog');STX.TimeZoneWidget.populateDialog('timezoneDialog');">Change Timezone</li>
+                        <li ></li>
                         <li class="stx-menu-divider">&nbsp;</li>
                         <li class="stx-heading">Default Themes</li>
                         <li class="stx-menu-content">
@@ -152,20 +146,8 @@
                 </div>
                 
             </div>
-        </div>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        </div>       
+         
         <br>    
         <div id="legend_container" >
             <div id="legend_dropdown" class="btn-group">
@@ -180,18 +162,18 @@
             </div>       
             <div id="legend_values">
                 <ul class="price-features" >
-                    <li><span>O:</span><span id="o_ohlc"> </span></li>
-                    <li><span>H:</span><span id="h_ohlc"> </span></li>
-                    <li><span>C:</span><span id="c_ohlc"> </span></li><br>     
-                    <li><span>L:</span><span id="l_ohlc"> </span></li>
-                    <li><span>V:</span><span id="v_ohlc"> </span></li>
-                    <li><span>B:</span><span id="b_ohlc"> </span></li>
+                    <li><span class="leg">O:</span><span id="o_ohlc"> </span></li>
+                    <li><span class="leg">H:</span><span id="h_ohlc"> </span></li>
+                    <li><span class="leg">C:</span><span id="c_ohlc"> </span></li><br>     
+                    <li><span class="leg">L:</span><span id="l_ohlc"> </span></li>
+                    <li><span class="leg">V:</span><span id="v_ohlc"> </span></li>
+                    <li><span class="leg">B:</span><span id="b_ohlc"> </span></li>
                 </ul>
             </div>  
         </div>     
 
         <div id="candle"  style="position: relative">
-            <div class="btn-group" style="position: absolute; left: 40%; top: 75%; ">
+            <div class="btn-group" style="position: absolute; left: 32%; top: 75%; ">
                 <button id="zoomout" class="btn btn-default"><i class="glyphicon glyphicon-minus"> </i></button>
                 <button id="zoomin" class="btn btn-default"><i class="glyphicon glyphicon-plus"> </i></button>
             </div>

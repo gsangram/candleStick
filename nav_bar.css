@@ -33,7 +33,8 @@
 .stx-nav .stx-search,
 .stx-nav #periodBtn,
 .stx-nav .stx-menus {
-    margin-top: 10px
+    margin-top: 10px;
+        display: inline-block;
 }
 
 .stx-nav .stx-btn.stx-menu-btn,
@@ -114,6 +115,9 @@
 
 .stx-btn.stx-menu-btn {
     padding: 0 28px 0 10px
+}
+.stxMenu {
+    z-index: 203
 }
     
 .stx-btn.stx-menu-btn>em {
@@ -277,6 +281,17 @@
     font-size: 12px
 }     
 
+@media(max-width:768px) {
+    .stx-wrapper {
+        display: inline-block;
+        width: 700px;
+        margin: 0 auto;
+        text-align: left;
+        position: relative
+    }
+}
+
+
 input#symbol {
     text-transform: uppercase;
     border-right: none;
@@ -290,7 +305,8 @@ input#symbol {
 }
 
 .stx-nav .stx-btn.stx-menu-btn {
-    width: 100px
+    width: 85px;
+    margin-left: 20px;
 }
 
 .stx-nav .stx-btn.stx-menu-btn#periodBtn {
@@ -714,4 +730,23 @@ li.stxLookupFilter {
 .stx-btn.loading#shareBtn span {
     background: url(img/stx-loading.gif);
     cursor: default
+}
+
+.menuSelect.periodicity,
+.menuSelect.chart-display,
+.menuSelect.studies,
+.menuSelect.draw,
+.menuSelect.cog {
+    width: 151px;
+    top: 34px;
+    left: auto;
+    right: auto
+}
+.menuSelect.periodicity {
+    left: 0;
+    width: 80px
+}
+.custom-dropdown .dropdown-toggle{
+    color: #fff;
+    text-decoration: none;
 }

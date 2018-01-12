@@ -116,9 +116,13 @@ path.middle, path.zero {
     width: 86%;
     background-color:  black;
 }
+#legend_container{
+        margin-top: -10px;
+}
 #legend_values{
     float : right; 
-    padding-right: 30%;
+    padding-right: 25%;
+    font-size: 11px;
 }
 #legend_dropdown{
     margin-left: 50px;
@@ -127,12 +131,23 @@ path.middle, path.zero {
 #legend_values li{
     display: inline-block;
     margin-right: 100px;
-    opacity: 0.5;
     width:90px;
 }
+.leg{
+    fill : 1px solid black; 
+    opacity: 0.5;
+}
+#o_ohlc, #l_ohlc, #h_ohlc, #c_ohlc, #b_ohlc, #v_ohlc{
+    fill : #B2B2B2;
+    opacity: 0.7;
+}
+
 path {
     stroke-width: 1;
     shape-rendering: crispEdges;
 }
+    #candle svg{
+        margin-top: -20px;
+    }
 
 
