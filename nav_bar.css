@@ -8,7 +8,8 @@
 }
 
 .stx-nav {
-    width: 1000px;
+    margin-left: 50px;
+    width: 950px;
     position: relative;
     border: solid 1px;
     background: #5b656b;
